@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,13 +46,32 @@ public class servletControlPanel extends HttpServlet {
                 System.out.println("Añadiendo video");
                 
                 String title = request.getParameter("title");
+                
                 String author = request.getParameter("author");
-                //Date date = request.getParameter("date");
-                //Time duration = request.getParameter("duration");
+                
+                String dateString = request.getParameter("date");
+                
+                java.util.Date utilDate = new Date(Calendar.getInstance().getTimeInMillis());
+                try {
+                    utilDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateString);
+                } catch (ParseException ex) {
+                    Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Date sqlDate = new Date(utilDate.getTime());
+                
+                String timeString = request.getParameter("duration");
+                try {
+                    utilDate = new SimpleDateFormat("hh:mm", Locale.ENGLISH).parse(timeString);
+                } catch (ParseException ex) {
+                    Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Time sqlTime = new Time(utilDate.getTime());
+                
                 String description = request.getParameter("description");
+                
                 String format = request.getParameter("format");
                 
-                Video video = new Video(0, title, author, new Date(2017, 1, 2), new Time(23, 54, 59), description, format);
+                Video video = new Video(0, title, author, sqlDate, sqlTime, description, format);
                 boolean videoCreated = video.createVideo();
                 
                 // TODO Hacer gestion sobre si video esta creado bien o no y redireccionar
