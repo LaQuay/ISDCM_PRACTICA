@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="uk-height-1-1">
+    <head>
+        <title>Añadir libro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="uikit_marc.css">
+    </head>
+    <body class="uk-height-1-1">
+        <div class="uk-vertical-align uk-text-center uk-height-1-1">        
+            <div class="uk-vertical-align-middle" style="width: 250px;">
+                <form class="uk-panel uk-panel-box uk-form" action="servletRegistroUsu">
+                    <div class="uk-form-row">
+                        <input class="uk-width-1-1 uk-form-large" type="text" name="name" placeholder="Nombre" required>
+                    </div>
+
+                    <div class="uk-form-row">
+                        <input class="uk-width-1-1 uk-form-large" type="text" name="surname" placeholder="Apellidos" required>                            
+                    </div>
+
+                    <div class="uk-form-row">
+                        <input class="uk-width-1-1 uk-form-large" type="text" name="email" placeholder="Email" required>                            
+                    </div>
+
+                    <div class="uk-form-row">
+                        <input class="uk-width-1-1 uk-form-large" type="text" name="username" placeholder="Usuario" required>
+                    </div>
+
+                    <div class="uk-form-row">
+                        <input class="uk-width-1-1 uk-form-large" type="password" name="password" placeholder="Contraseña" required>                        
+                    </div>
+
+                    <div class="uk-form-row">
+                        <input class="uk-width-1-1 uk-form-large" type="password" name="password_confirmation" placeholder="Confirmar contraseña" required>                        
+                    </div>
+                        
+                    <div class="uk-form-row">
+                        <input class="uk-width-1-1 uk-button uk-button-primary uk-button-large" type="submit" value="Registrar">
+                    </div>
+                    
+                    <div class="uk-form-row uk-text-small">
+                        <a class="uk-float-right uk-link uk-link-muted" href="./index.html">Volver atrás</a>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </body>
+</html>
