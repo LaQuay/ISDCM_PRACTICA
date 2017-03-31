@@ -2,11 +2,14 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Video;
 
 //Si falla glassfish: 
 //http://stackoverflow.com/questions/25799671/netbeans-glassfish-server-4-deploy-connection-refused-connect-false-the-mo
@@ -35,6 +38,18 @@ public class servletControlPanel extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             if (request.getParameter("title") != null) {
                 System.out.println("Añadiendo video");
+                
+                String title = request.getParameter("title");
+                String author = request.getParameter("author");
+                //Date date = request.getParameter("date");
+                //Time duration = request.getParameter("duration");
+                String description = request.getParameter("description");
+                String format = request.getParameter("format");
+                
+                Video video = new Video(0, title, author, new Date(2017, 1, 2), new Time(23, 54, 59), description, format);
+                boolean videoCreated = video.createVideo();
+                
+                // TODO Hacer gestion sobre si video esta creado bien o no y redireccionar
                 
             } else if (request.getParameter("addvideo") != null) {
                 System.out.println("Abriendo página para añadir video");

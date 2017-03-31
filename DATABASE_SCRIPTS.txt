@@ -1,0 +1,16 @@
+# Creating the VIDEOS table #
+
+CREATE TABLE VIDEOS
+(
+    "ID" INT not null primary key
+        GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
+    "AUTHORID" INT not null,
+    "TITLE" VARCHAR(100) not null,
+    "AUTHOR" VARCHAR(100) not null,
+    "DATE" DATE not null,
+    "DURATION" TIME not null,
+    "VISUALIZATIONS" INT not null,
+    "DESCRIPTION" VARCHAR(255) not null,
+    "FORMAT" VARCHAR(5) not null
+);

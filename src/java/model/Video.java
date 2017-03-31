@@ -24,9 +24,10 @@ public class Video {
     private String descripcion;
     private String formato;
     
-    private static final String host = "jdbc:derby://localhost:1527/DBUsuarios";
-    private static final String uName = "marc";
-    private static final String uPass = "vila";
+    private static final String DB_HOST = "jdbc:derby://localhost:1527/DBUsuarios";
+    private static final String DB_USER = "marc";
+    private static final String DB_PASSWORD = "vila";
+    private static final String TABLENAME = "VIDEOS";
     
     public Video(){
         this._ID = -1;
@@ -54,7 +55,7 @@ public class Video {
     }
     
     public Video(int autorID, String titulo, String autor, Date fecha, Time duracion, String descripcion, String formato){
-        System.out.println("Creando Video: " + "UNREGISTERED" + autorID + " - " + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + 0 + " - " + descripcion + " - " + formato);
+        System.out.println("Cargando Video: " + "UNREGISTERED" + " - " + autorID + " - " + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + 0 + " - " + descripcion + " - " + formato);
         this._ID = -1;
         this.autorID = autorID;
         this.titulo = titulo;
@@ -69,11 +70,12 @@ public class Video {
     public boolean createVideo(){
         boolean result = false;
         try {
-            Connection conn = DriverManager.getConnection(host, uName, uPass);
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "INSERT INTO VIDEOS " +
-                   "VALUES('" + this.autorID + "', '" + this.titulo + "', '" + this.autor + "', '" + this.fecha + "', '" + this.duracion + "', '" + this.reproducciones + "', '" + this.descripcion + "', '" + this.formato + "')";
+            String sql = "INSERT INTO " + TABLENAME 
+                    + "(AUTHORID, TITLE, AUTHOR, DATE, DURATION, VISUALIZATIONS, DESCRIPTION, FORMAT)"
+                    + " VALUES (" + this.autorID + ", '" + this.titulo + "', '" + this.autor + "', '" + this.fecha + "', '" + this.duracion + "', " + this.reproducciones + ", '" + this.descripcion + "', '" + this.formato + "')";
             System.out.println("Sentencia SQL: " + sql);
             stmt.executeUpdate(sql);
             
@@ -87,10 +89,10 @@ public class Video {
     public Video getVideo(){
         Video video = null;
         try {
-            Connection conn = DriverManager.getConnection(host, uName, uPass);
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM VIDEOS WHERE id='" + this._ID + "'";
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE id='" + this._ID + "'";
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {                

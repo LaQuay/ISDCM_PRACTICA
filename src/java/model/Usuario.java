@@ -18,9 +18,10 @@ public class Usuario {
     private String userName;
     private String password;
     
-    private static final String host = "jdbc:derby://localhost:1527/DBUsuarios";
-    private static final String uName = "marc";
-    private static final String uPass = "vila";
+    private static final String DB_HOST = "jdbc:derby://localhost:1527/DBUsuarios";
+    private static final String DB_USER = "marc";
+    private static final String DB_PASSWORD = "vila";
+    private static final String TABLENAME = "USUARIO";
     
     public Usuario(){
         this.nombre = null;
@@ -31,7 +32,7 @@ public class Usuario {
     }    
     
     public Usuario(String nombre, String apellidos, String email, String userName, String password){
-        System.out.println("Creando Usuario: " + nombre + " - " + apellidos + " - " + email + " - " + userName + " - " + password);
+        System.out.println("Cargando Usuario: " + nombre + " - " + apellidos + " - " + email + " - " + userName + " - " + password);
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
@@ -120,10 +121,10 @@ public class Usuario {
     public boolean existsUserOrEmail(){
         boolean existsUserOrEmail = true;
         try {
-            Connection conn = DriverManager.getConnection(host, uName, uPass);
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT COUNT(*) as COUNT FROM USUARIO WHERE username='" + this.userName + "' OR email='" + this.email + "'";
+            String sql = "SELECT COUNT(*) as COUNT FROM " + TABLENAME + " WHERE username='" + this.userName + "' OR email='" + this.email + "'";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 existsUserOrEmail = (rs.getInt("COUNT") > 0);
@@ -139,11 +140,11 @@ public class Usuario {
     public boolean createUser(){
         boolean result = false;
         try {
-            Connection conn = DriverManager.getConnection(host, uName, uPass);
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "INSERT INTO USUARIO " +
-                   "VALUES('" + this.nombre + "', '" + this.apellidos + "', '" + this.email + "', '" + this.userName + "', '" + this.password + "')";
+            String sql = "INSERT INTO " + TABLENAME +
+                   " VALUES ('" + this.nombre + "', '" + this.apellidos + "', '" + this.email + "', '" + this.userName + "', '" + this.password + "')";
             System.out.println("Sentencia SQL: " + sql);
             stmt.executeUpdate(sql);
             
@@ -157,10 +158,10 @@ public class Usuario {
     public Usuario getUser(){
         Usuario usuario = null;
         try {
-            Connection conn = DriverManager.getConnection(host, uName, uPass);
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM USUARIO WHERE username='" + this.userName + "' AND password='" + this.password + "'";
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE username='" + this.userName + "' AND password='" + this.password + "'";
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
@@ -171,8 +172,7 @@ public class Usuario {
                 String password = rs.getString("PASSWORD");
                                 
                 usuario = new Usuario(name, surname, email, userName, password);
-            }
-            
+            }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
