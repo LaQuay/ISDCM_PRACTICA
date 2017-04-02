@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.ArrayList;
 
 /**
  *
@@ -65,8 +66,8 @@ public class Video {
         this.reproducciones = 0;
         this.descripcion = descripcion;
         this.formato = formato;
-    }
-
+    }  
+    
     public boolean createVideo(){
         boolean result = false;
         try {
@@ -75,7 +76,7 @@ public class Video {
             
             String sql = "INSERT INTO " + TABLENAME 
                     + "(AUTHORID, TITLE, AUTHOR, DATE, DURATION, VISUALIZATIONS, DESCRIPTION, FORMAT)"
-                    + " VALUES (" + this.autorID + ", '" + this.titulo + "', '" + this.autor + "', '" + this.fecha + "', '" + this.duracion + "', " + this.reproducciones + ", '" + this.descripcion + "', '" + this.formato + "')";
+                    + " VALUES (" + this.getAutorID() + ", '" + this.getTitulo() + "', '" + this.getAutor() + "', '" + this.getFecha() + "', '" + this.getDuracion() + "', " + this.getReproducciones() + ", '" + this.getDescripcion() + "', '" + this.getFormato() + "')";
             System.out.println("Sentencia SQL: " + sql);
             stmt.executeUpdate(sql);
             
@@ -92,7 +93,7 @@ public class Video {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE id='" + this._ID + "'";
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE AUTHORID='" + this.getAutorID() + "'";
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {                
@@ -107,11 +108,165 @@ public class Video {
                 String formato = rs.getString("FORMAT");
                                 
                 video = new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato);
-            }
-            
+            }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
         return video;
     }    
+    
+    public ArrayList getAllVideos(){
+        ArrayList videosArray = new ArrayList();
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            //String sql = "SELECT * FROM " + TABLENAME + " WHERE AUTHORID='" + this.autor + "'";
+            String sql = "SELECT * FROM " + TABLENAME;
+            System.out.println("Sentencia SQL: " + sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {                
+                int _ID = rs.getInt("ID");
+                int autorID = rs.getInt("AUTHORID");
+                String titulo = rs.getString("TITLE");
+                String autor = rs.getString("AUTHOR");
+                Date fecha = rs.getDate("DATE");
+                Time duracion = rs.getTime("DURATION");
+                int reproducciones = rs.getInt("VISUALIZATIONS");
+                String descripcion = rs.getString("DESCRIPTION");
+                String formato = rs.getString("FORMAT");
+                                
+                videosArray.add(new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato));
+            }            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return videosArray;
+    }
+
+    /**
+     * @return the _ID
+     */
+    public int getID() {
+        return _ID;
+    }
+
+    /**
+     * @param _ID the _ID to set
+     */
+    public void setID(int _ID) {
+        this._ID = _ID;
+    }
+
+    /**
+     * @return the autorID
+     */
+    public int getAutorID() {
+        return autorID;
+    }
+
+    /**
+     * @param autorID the autorID to set
+     */
+    public void setAutorID(int autorID) {
+        this.autorID = autorID;
+    }
+
+    /**
+     * @return the titulo
+     */
+    public String getTitulo() {
+        return titulo;
+    }
+
+    /**
+     * @param titulo the titulo to set
+     */
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    /**
+     * @return the fecha
+     */
+    public Date getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    /**
+     * @return the duracion
+     */
+    public Time getDuracion() {
+        return duracion;
+    }
+
+    /**
+     * @param duracion the duracion to set
+     */
+    public void setDuracion(Time duracion) {
+        this.duracion = duracion;
+    }
+
+    /**
+     * @return the reproducciones
+     */
+    public int getReproducciones() {
+        return reproducciones;
+    }
+
+    /**
+     * @param reproducciones the reproducciones to set
+     */
+    public void setReproducciones(int reproducciones) {
+        this.reproducciones = reproducciones;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the formato
+     */
+    public String getFormato() {
+        return formato;
+    }
+
+    /**
+     * @param formato the formato to set
+     */
+    public void setFormato(String formato) {
+        this.formato = formato;
+    }
 }

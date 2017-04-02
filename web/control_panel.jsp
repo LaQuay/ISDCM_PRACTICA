@@ -1,3 +1,5 @@
+<%@page import="model.Video"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:useBean id="servletCtrlPan" class="controller.servletControlPanel" scope="session"/>
@@ -27,6 +29,39 @@
 
                         <div class="uk-width-3-4">
                             <h3>Listado de vídeos</h3>
+                            
+                            <table class="uk-table uk-table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Autor</th>
+                                        <th>Fecha</th>
+                                        <th>Duración</th>
+                                        <th>Reproducciones</th>
+                                        <th>Descripción</th>
+                                        <th>Formato</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        ArrayList videosArray = (ArrayList) request.getSession().getAttribute(servletCtrlPan.attributeVideosArray);
+                                        
+                                        for (int i = 0; i < videosArray.size(); ++i){
+                                            Video video = (Video) videosArray.get(i);
+                                            
+                                            out.println("<tr>");
+                                            out.println("<td>" + video.getTitulo() + "</td>"); 
+                                            out.println("<td>" + video.getAutor()+ "</td>"); 
+                                            out.println("<td>" + video.getFecha()+ "</td>"); 
+                                            out.println("<td>" + video.getDuracion()+ "</td>"); 
+                                            out.println("<td>" + video.getReproducciones()+ "</td>"); 
+                                            out.println("<td>" + video.getDescripcion()+ "</td>"); 
+                                            out.println("<td>" + video.getFormato()+ "</td>"); 
+                                            out.println("<tr>");
+                                        }                                    
+                                    %>
+                                </tbody>                                
+                            </table>
                         </div>
                     </div>
                 </div>

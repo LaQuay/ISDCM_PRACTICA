@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ import model.Video;
 @WebServlet(name = "servletControlPanel", urlPatterns = {"/servletControlPanel"})
 public class servletControlPanel extends HttpServlet {
     public static String attributeLoggedIn = "USER_IS_LOGGED";
+    public static String attributeVideosArray = "ATTRIBUTE_VIDEOS_ARRAY";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -85,9 +87,16 @@ public class servletControlPanel extends HttpServlet {
                 
                 request.getRequestDispatcher("/index.html").forward(request, response);
             }
+            
+            Video video = new Video();
+            ArrayList videosArray = video.getAllVideos();
+            
+            request.getSession().setAttribute(attributeVideosArray, videosArray);
+            
+            request.getRequestDispatcher("/control_panel.jsp").forward(request, response);
         }
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
