@@ -18,13 +18,42 @@
                     <div class="uk-grid">                        
                         <div class="uk-width-1-4">
                             <h3>Bienvenido <%= request.getSession().getAttribute("username") %></h3>
-                            <form class="uk-form" action="servletControlPanel">
-                                <input class="uk-button uk-margin-small-bottom" type="submit" name="addvideo" value="Añadir vídeo">
-                            </form>
+                                                          
+                            <table class="uk-table">
+                                <thead>
+                                    <tr>
+                                        <th>Funciones</th>
+                                    </tr>                                    
+                                </thead>
+                                
+                                <body>
+                                    <tr>
+                                        <td>
+                                            <form class="uk-form" style="text-align: left !important" action="servletControlPanel">
+                                                <input class="uk-button uk-button-link" type="submit" name="addvideo" value="Añadir vídeo">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </body>
+                            </table>
                             
-                            <form class="uk-form" action="servletControlPanel">
-                                <input class="uk-button uk-button-primary" type="submit" name="logout" value="Logout">
-                            </form>
+                            <table class="uk-table">
+                                <thead>
+                                    <tr>
+                                        <th>Configuración</th>
+                                    </tr>                                    
+                                </thead>
+                                
+                                <body>
+                                    <tr>
+                                        <td>
+                                            <form class="uk-form" style="text-align: left !important" action="servletControlPanel">
+                                                <input class="uk-button uk-button-link" type="submit" name="logout" value="Logout">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </body>
+                            </table>
                         </div>                        
 
                         <div class="uk-width-3-4">
@@ -59,8 +88,8 @@
                                             out.println("<td>" + video.getDescripcion()+ "</td>"); 
                                             out.println("<td>" + video.getFormato()+ "</td>"); 
                                             String videoURL = video.getURL();
-                                            if (videoURL != null){
-                                                out.println("<td> <a href='" + videoURL + "> Enlace" + "</td>"); 
+                                            if (videoURL != null && !videoURL.equals("")){
+                                                out.println("<td> <a href='" + videoURL + "'> Enlace" + "</td>"); 
                                             } else {
                                                 out.println("<td> </td>"); 
                                             }
