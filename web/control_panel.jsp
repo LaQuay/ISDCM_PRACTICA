@@ -8,6 +8,7 @@
         <title>Panel de control</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="uikit_marc.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
     <body class="uk-height-1-1 ">
         <div class="uk-vertical-align uk-text-center uk-height-1-1">
@@ -66,10 +67,11 @@
                                         <th>Autor</th>
                                         <th>Fecha</th>
                                         <th>Duración</th>
-                                        <th>Reproducciones</th>
-                                        <th>Descripción</th>
+                                        <th>Reprod.</th>
+                                        <th>Descrip.</th>
                                         <th>Formato</th>
                                         <th>URL</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,6 +95,15 @@
                                             } else {
                                                 out.println("<td> </td>"); 
                                             }
+                                            out.println("<td>");
+                                            out.println("<form class='uk-form' action='servletControlPanel'>");
+                                            
+                                            out.println("<div class='uk-button uk-button-danger'>");
+                                            out.println("<i class='uk-icon-minus-square'></i>");
+                                            out.println("<input class='uk-button-link' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
+                                            out.println("</div>");
+                                            out.println("</form>");
+                                            out.println("</td>");
                                             out.println("<tr>");
                                         }                                    
                                     %>

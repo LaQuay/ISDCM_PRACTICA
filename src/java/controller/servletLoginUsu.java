@@ -72,7 +72,7 @@ public class servletLoginUsu extends HttpServlet {
                         
                         //Redireccionamos al panel de control
                         request.getSession().setAttribute(attributeLoggedIn, true);
-                        response.setHeader("Refresh", "3;url=servletControlPanel");
+                        response.setHeader("Refresh", "2;url=servletControlPanel");
                     } else {
                         request.getSession().setAttribute(attributeErrorInvalidPassword, true);                        
                     }

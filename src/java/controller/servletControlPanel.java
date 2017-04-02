@@ -43,7 +43,10 @@ public class servletControlPanel extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {            
+            Video video = new Video();
+            ArrayList videosArray = video.getAllVideos();
+            
             if (request.getParameter("title") != null) {
                 System.out.println("Añadiendo video");
                 
@@ -75,7 +78,7 @@ public class servletControlPanel extends HttpServlet {
                 
                 String url = request.getParameter("url");
                 
-                Video video = new Video(0, title, author, sqlDate, sqlTime, description, format, url);
+                video = new Video(0, title, author, sqlDate, sqlTime, description, format, url);
                 boolean videoCreated = video.createVideo();
                 
                 // TODO Hacer gestion sobre si video esta creado bien o no y redireccionar
@@ -83,6 +86,15 @@ public class servletControlPanel extends HttpServlet {
             } else if (request.getParameter("addvideo") != null) {
                 System.out.println("Abriendo página para añadir video");
                 request.getRequestDispatcher("/addvideo.html").forward(request, response);
+            } else if (isRequestForDelete(request, videosArray)) {
+                System.out.println("Borrando video");
+                
+                video = getVideoForDelete(request, videosArray);
+                if (video != null){
+                    video = video.deleteVideo();
+                }
+                
+                response.setHeader("Refresh", "1;url=servletControlPanel");              
             } else if (request.getParameter("logout") != null) {
                 System.out.println("Haciendo logout");
                 request.getSession().setAttribute(attributeLoggedIn, false);                
@@ -90,13 +102,32 @@ public class servletControlPanel extends HttpServlet {
                 request.getRequestDispatcher("/index.html").forward(request, response);
             }
             
-            Video video = new Video();
-            ArrayList videosArray = video.getAllVideos();
-            
             request.getSession().setAttribute(attributeVideosArray, videosArray);
             
             request.getRequestDispatcher("/control_panel.jsp").forward(request, response);
         }
+    }
+    
+    private boolean isRequestForDelete(HttpServletRequest request, ArrayList videosArray) {
+        for (int i = 0; i < videosArray.size(); ++i){
+            Video currentVideo = (Video) videosArray.get(i);
+            if (request.getParameter("deletevideo#" + currentVideo.getID()) != null){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private Video getVideoForDelete(HttpServletRequest request, ArrayList videosArray){
+        for (int i = 0; i < videosArray.size(); ++i){
+            Video currentVideo = (Video) videosArray.get(i);
+            if (request.getParameter("deletevideo#" + currentVideo.getID()) != null){
+                return currentVideo;
+            }
+        }
+        
+        return null;
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -75,7 +75,7 @@ public class servletRegistroUsu extends HttpServlet {
                     boolean registered = usuario.createUser();
                     request.getSession().setAttribute(attributeUserRegisteredOK, registered);
                     
-                    response.setHeader("Refresh", "4;url=index.html");
+                    response.setHeader("Refresh", "3;url=index.html");
                 } else {
                     //Mostrar mensaje de error de usuario ya existente
                     System.out.println("Usuario o email ya existe");

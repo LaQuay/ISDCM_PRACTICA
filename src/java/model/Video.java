@@ -120,6 +120,21 @@ public class Video {
         return video;
     }    
     
+    public Video deleteVideo(){
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            String sql = "DELETE FROM " + TABLENAME + " WHERE ID=" + this.getID();
+            System.out.println("Sentencia SQL: " + sql);
+            stmt.executeUpdate(sql);
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+        return new Video();
+    }
+    
     public ArrayList getAllVideos(){
         ArrayList videosArray = new ArrayList();
         try {
