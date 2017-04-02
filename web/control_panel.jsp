@@ -40,6 +40,7 @@
                                         <th>Reproducciones</th>
                                         <th>Descripción</th>
                                         <th>Formato</th>
+                                        <th>URL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,6 +58,12 @@
                                             out.println("<td>" + video.getReproducciones()+ "</td>"); 
                                             out.println("<td>" + video.getDescripcion()+ "</td>"); 
                                             out.println("<td>" + video.getFormato()+ "</td>"); 
+                                            String videoURL = video.getURL();
+                                            if (videoURL != null){
+                                                out.println("<td> <a href='" + videoURL + "> Enlace" + "</td>"); 
+                                            } else {
+                                                out.println("<td> </td>"); 
+                                            }
                                             out.println("<tr>");
                                         }                                    
                                     %>

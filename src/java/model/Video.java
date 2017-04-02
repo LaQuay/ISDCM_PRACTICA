@@ -24,6 +24,7 @@ public class Video {
     private int reproducciones;
     private String descripcion;
     private String formato;
+    private String URL;
     
     private static final String DB_HOST = "jdbc:derby://localhost:1527/DBUsuarios";
     private static final String DB_USER = "marc";
@@ -40,10 +41,11 @@ public class Video {
         this.reproducciones = 0;
         this.descripcion = null;
         this.formato = null;
+        this.URL = null;
     }    
     
-    public Video(int ID, int autorID, String titulo, String autor, Date fecha, Time duracion, int reproducciones, String descripcion, String formato){
-        System.out.println("Creando Video: " + ID + autorID + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + reproducciones + " - " + descripcion + " - " + formato);
+    public Video(int ID, int autorID, String titulo, String autor, Date fecha, Time duracion, int reproducciones, String descripcion, String formato, String url){
+        System.out.println("Creando Video: " + ID + autorID + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + reproducciones + " - " + descripcion + " - " + formato + " - " + url);
         this._ID = ID;
         this.autorID = autorID;
         this.titulo = titulo;
@@ -53,10 +55,11 @@ public class Video {
         this.reproducciones = reproducciones;
         this.descripcion = descripcion;
         this.formato = formato;
+        this.URL = url;
     }
     
-    public Video(int autorID, String titulo, String autor, Date fecha, Time duracion, String descripcion, String formato){
-        System.out.println("Cargando Video: " + "UNREGISTERED" + " - " + autorID + " - " + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + 0 + " - " + descripcion + " - " + formato);
+    public Video(int autorID, String titulo, String autor, Date fecha, Time duracion, String descripcion, String formato, String url){
+        System.out.println("Cargando Video: " + "UNREGISTERED" + " - " + autorID + " - " + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + 0 + " - " + descripcion + " - " + formato + " - " + url);
         this._ID = -1;
         this.autorID = autorID;
         this.titulo = titulo;
@@ -66,6 +69,7 @@ public class Video {
         this.reproducciones = 0;
         this.descripcion = descripcion;
         this.formato = formato;
+        this.URL = url;
     }  
     
     public boolean createVideo(){
@@ -75,8 +79,8 @@ public class Video {
             Statement stmt = conn.createStatement();
             
             String sql = "INSERT INTO " + TABLENAME 
-                    + "(AUTHORID, TITLE, AUTHOR, DATE, DURATION, VISUALIZATIONS, DESCRIPTION, FORMAT)"
-                    + " VALUES (" + this.getAutorID() + ", '" + this.getTitulo() + "', '" + this.getAutor() + "', '" + this.getFecha() + "', '" + this.getDuracion() + "', " + this.getReproducciones() + ", '" + this.getDescripcion() + "', '" + this.getFormato() + "')";
+                    + "(AUTHORID, TITLE, AUTHOR, DATE, DURATION, VISUALIZATIONS, DESCRIPTION, FORMAT, URL)"
+                    + " VALUES (" + this.getAutorID() + ", '" + this.getTitulo() + "', '" + this.getAutor() + "', '" + this.getFecha() + "', '" + this.getDuracion() + "', " + this.getReproducciones() + ", '" + this.getDescripcion() + "', '" + this.getFormato() + "', '" + this.getURL() + "')";
             System.out.println("Sentencia SQL: " + sql);
             stmt.executeUpdate(sql);
             
@@ -106,8 +110,9 @@ public class Video {
                 int reproducciones = rs.getInt("VISUALIZATIONS");
                 String descripcion = rs.getString("DESCRIPTION");
                 String formato = rs.getString("FORMAT");
+                String url = rs.getString("URL");
                                 
-                video = new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato);
+                video = new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato, url);
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
@@ -135,8 +140,9 @@ public class Video {
                 int reproducciones = rs.getInt("VISUALIZATIONS");
                 String descripcion = rs.getString("DESCRIPTION");
                 String formato = rs.getString("FORMAT");
+                String url = rs.getString("URL");
                                 
-                videosArray.add(new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato));
+                videosArray.add(new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato, url));
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
@@ -268,5 +274,19 @@ public class Video {
      */
     public void setFormato(String formato) {
         this.formato = formato;
+    }
+
+    /**
+     * @return the URL
+     */
+    public String getURL() {
+        return URL;
+    }
+
+    /**
+     * @param URL the URL to set
+     */
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 }

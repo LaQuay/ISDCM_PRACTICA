@@ -73,7 +73,9 @@ public class servletControlPanel extends HttpServlet {
                 
                 String format = request.getParameter("format");
                 
-                Video video = new Video(0, title, author, sqlDate, sqlTime, description, format);
+                String url = request.getParameter("url");
+                
+                Video video = new Video(0, title, author, sqlDate, sqlTime, description, format, url);
                 boolean videoCreated = video.createVideo();
                 
                 // TODO Hacer gestion sobre si video esta creado bien o no y redireccionar
