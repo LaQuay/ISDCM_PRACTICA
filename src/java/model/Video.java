@@ -135,14 +135,16 @@ public class Video {
         return new Video();
     }
     
-    public ArrayList getAllVideos(){
+    public ArrayList getAllVideos(int authorID){
         ArrayList videosArray = new ArrayList();
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            //String sql = "SELECT * FROM " + TABLENAME + " WHERE AUTHORID='" + this.autor + "'";
-            String sql = "SELECT * FROM " + TABLENAME;
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE AUTHORID=" + authorID;
+            if (authorID == -1){
+                sql = "SELECT * FROM " + TABLENAME;
+            }
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {                

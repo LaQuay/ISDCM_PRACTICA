@@ -12,6 +12,7 @@ import java.sql.Statement;
  */
 
 public class Usuario {
+    private int _ID;
     private String nombre;
     private String apellidos;
     private String email;
@@ -24,12 +25,23 @@ public class Usuario {
     private static final String TABLENAME = "USUARIO";
     
     public Usuario(){
+        this._ID = -1;
         this.nombre = null;
         this.apellidos = null;
         this.email = null;
         this.userName = null;
         this.password = null;
     }    
+    
+    public Usuario(int ID, String nombre, String apellidos, String email, String userName, String password){
+        System.out.println("Cargando Usuario: " + ID + " - " + nombre + " - " + apellidos + " - " + email + " - " + userName + " - " + password);
+        this._ID = ID;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
+    }
     
     public Usuario(String nombre, String apellidos, String email, String userName, String password){
         System.out.println("Cargando Usuario: " + nombre + " - " + apellidos + " - " + email + " - " + userName + " - " + password);
@@ -47,6 +59,20 @@ public class Usuario {
         this.userName = userName;
         this.password = password;
     }   
+    
+    /**
+     * @return the ID
+     */
+    public int getID() {
+        return _ID;
+    }
+
+    /**
+     * @param ID the ID to set
+     */
+    public void setID(int ID) {
+        this._ID = ID;
+    }
 
     /**
      * @return the nombre
@@ -143,8 +169,9 @@ public class Usuario {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "INSERT INTO " + TABLENAME +
-                   " VALUES ('" + this.nombre + "', '" + this.apellidos + "', '" + this.email + "', '" + this.userName + "', '" + this.password + "')";
+            String sql = "INSERT INTO " + TABLENAME
+                    + "(NAME, SURNAME, EMAIL, USERNAME, PASSWORD)"
+                   + " VALUES ('" + this.nombre + "', '" + this.apellidos + "', '" + this.email + "', '" + this.userName + "', '" + this.password + "')";
             System.out.println("Sentencia SQL: " + sql);
             stmt.executeUpdate(sql);
             
@@ -165,13 +192,14 @@ public class Usuario {
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
+                int ID = rs.getInt("ID");
                 String name = rs.getString("NAME");
                 String surname = rs.getString("SURNAME");
                 String email = rs.getString("EMAIL");
                 String userName = rs.getString("USERNAME");
                 String password = rs.getString("PASSWORD");
                                 
-                usuario = new Usuario(name, surname, email, userName, password);
+                usuario = new Usuario(ID, name, surname, email, userName, password);
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());

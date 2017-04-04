@@ -22,6 +22,7 @@ public class servletLoginUsu extends HttpServlet {
     public static String attributeErrorInvalidPassword = "ERROR_IS_INVALID_PASSWORD";    
     public static String attributeUserExists = "ERROR_USER_REGISTERED_YET";
     public static String attributeLoggedIn = "USER_IS_LOGGED";
+    public static String attributeUserID = "USER_ID";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -72,6 +73,7 @@ public class servletLoginUsu extends HttpServlet {
                         
                         //Redireccionamos al panel de control
                         request.getSession().setAttribute(attributeLoggedIn, true);
+                        request.getSession().setAttribute(attributeUserID, usuario.getID());
                         response.setHeader("Refresh", "2;url=servletControlPanel");
                     } else {
                         request.getSession().setAttribute(attributeErrorInvalidPassword, true);                        

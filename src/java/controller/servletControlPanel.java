@@ -29,6 +29,7 @@ import model.Video;
 public class servletControlPanel extends HttpServlet {
     public static String attributeLoggedIn = "USER_IS_LOGGED";
     public static String attributeVideosArray = "ATTRIBUTE_VIDEOS_ARRAY";
+    public static String attributeUserID = "USER_ID";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,8 +45,14 @@ public class servletControlPanel extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         try (PrintWriter out = response.getWriter()) {            
+            int idUsuario = -1;
+            try {
+                idUsuario = (Integer) request.getSession().getAttribute(attributeUserID);
+            } catch (Exception e){
+                System.err.println(e.toString());
+            }
             Video video = new Video();
-            ArrayList videosArray = video.getAllVideos();
+            ArrayList videosArray = video.getAllVideos(idUsuario);
             
             if (request.getParameter("title") != null) {
                 System.out.println("Añadiendo video");
@@ -78,7 +85,7 @@ public class servletControlPanel extends HttpServlet {
                 
                 String url = request.getParameter("url");
                 
-                video = new Video(0, title, author, sqlDate, sqlTime, description, format, url);
+                video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
                 boolean videoCreated = video.createVideo();
                 
                 // TODO Hacer gestion sobre si video esta creado bien o no y redireccionar
