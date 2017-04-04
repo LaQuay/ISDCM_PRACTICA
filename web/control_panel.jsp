@@ -20,7 +20,7 @@
                         <div class="uk-width-1-4">
                             <h3>Bienvenido <%= request.getSession().getAttribute("username") %></h3>
                                                           
-                            <table class="uk-table">
+                            <table class="uk-table vertical-line">
                                 <thead>
                                     <tr>
                                         <th>Funciones</th>
@@ -38,7 +38,7 @@
                                 </body>
                             </table>
                             
-                            <table class="uk-table">
+                            <table class="uk-table vertical-line">
                                 <thead>
                                     <tr>
                                         <th>Configuración</th>
