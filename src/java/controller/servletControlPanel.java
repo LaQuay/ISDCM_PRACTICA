@@ -88,8 +88,7 @@ public class servletControlPanel extends HttpServlet {
                 video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
                 boolean videoCreated = video.createVideo();
                 
-                // TODO Hacer gestion sobre si video esta creado bien o no y redireccionar
-                
+                response.setHeader("Refresh", "0;url=servletControlPanel");
             } else if (request.getParameter("addvideo") != null) {
                 System.out.println("Abriendo página para añadir video");
                 request.getRequestDispatcher("/addvideo.html").forward(request, response);
@@ -101,7 +100,7 @@ public class servletControlPanel extends HttpServlet {
                     video = video.deleteVideo();
                 }
                 
-                response.setHeader("Refresh", "1;url=servletControlPanel");              
+                response.setHeader("Refresh", "0;url=servletControlPanel");              
             } else if (request.getParameter("logout") != null) {
                 System.out.println("Haciendo logout");
                 request.getSession().setAttribute(attributeLoggedIn, false);                
