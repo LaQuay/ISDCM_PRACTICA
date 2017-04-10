@@ -1,5 +1,6 @@
 package controller;
 
+import api.VideoAPI;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -51,8 +52,7 @@ public class servletControlPanel extends HttpServlet {
             } catch (Exception e){
                 System.err.println(e.toString());
             }
-            Video video = new Video();
-            ArrayList videosArray = video.getAllVideos(idUsuario);
+            ArrayList videosArray = VideoAPI.getAllVideos(idUsuario);
             
             if (request.getParameter("title") != null) {
                 System.out.println("Añadiendo video");
@@ -85,7 +85,7 @@ public class servletControlPanel extends HttpServlet {
                 
                 String url = request.getParameter("url");
                 
-                video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
+                Video video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
                 boolean videoCreated = video.createVideo();
                 
                 response.setHeader("Refresh", "0;url=servletControlPanel");
@@ -95,7 +95,7 @@ public class servletControlPanel extends HttpServlet {
             } else if (isRequestForDelete(request, videosArray)) {
                 System.out.println("Borrando video");
                 
-                video = getVideoForDelete(request, videosArray);
+                Video video = getVideoForDelete(request, videosArray);
                 if (video != null){
                     video = video.deleteVideo();
                 }

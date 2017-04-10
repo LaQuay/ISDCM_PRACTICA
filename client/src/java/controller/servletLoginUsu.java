@@ -37,9 +37,7 @@ public class servletLoginUsu extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        VideoAPI videoAPI = new VideoAPI();
-        
+                
         try (PrintWriter out = response.getWriter()) {
             //Recogida de parametros
             System.out.println("Empezando processRequest");

@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  */
 @WebService(serviceName = "ServerApplication")
 @Stateless()
-@XmlSeeAlso(Video.class)
+@XmlSeeAlso(VideoServer.class)
 public class ServerApplication {
 
     /**
@@ -34,7 +34,7 @@ public class ServerApplication {
      */
     @WebMethod(operationName = "getVideos")
     public ArrayList getVideos(@WebParam(name = "idAuthor") int idAuthor) {
-        Video video = new Video();
+        VideoServer video = new VideoServer();
         if (idAuthor < 0){
             idAuthor = -1;
         }

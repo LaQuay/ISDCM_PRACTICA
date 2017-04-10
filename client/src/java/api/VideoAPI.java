@@ -1,9 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package api;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.me.server.ServerApplication_Service;
+import org.me.server.ServerApplication;
+import model.Video;
 
 /**
  *
@@ -23,8 +25,28 @@ public class VideoAPI {
     }
     
     private static int add(int i, int j) {
-        org.me.server.ServerApplication_Service service = new org.me.server.ServerApplication_Service();
-        org.me.server.ServerApplication port = service.getServerApplicationPort();
+        ServerApplication_Service service = new org.me.server.ServerApplication_Service();
+        ServerApplication port = service.getServerApplicationPort();
         return port.add(i, j);
+    }
+    
+    public static ArrayList getAllVideos(int idUsuario){
+        ServerApplication_Service service = new org.me.server.ServerApplication_Service();
+        ServerApplication port = service.getServerApplicationPort();
+        
+        List videosList = port.getVideos(idUsuario);
+        
+        ArrayList<Video> arrayVideos = new ArrayList<>();
+        for (int i = 0; i < videosList.size(); ++i){
+            org.me.server.Video videoFromServer = (org.me.server.Video) videosList.get(i);
+            /*arrayVideos.add(new Video(
+                    videoFromServer.getID(), videoFromServer.getAutorID(), 
+                    videoFromServer.getTitulo(), videoFromServer.getAutor(), 
+                    videoFromServer.getFecha(), videoFromServer.getDuracion(), 
+                    videoFromServer.getReproducciones(), videoFromServer.getDescripcion(),
+                    videoFromServer.getFormato(), videoFromServer.getURL()));*/
+        }
+        
+        return arrayVideos;
     }
 }

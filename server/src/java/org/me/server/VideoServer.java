@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author marc.vila.gomez
  */
 @XmlRootElement(name="Video")
-public class Video {
+public class VideoServer {
     private int _ID;
     private int autorID;
     private String titulo;
@@ -32,7 +32,7 @@ public class Video {
     private static final String DB_PASSWORD = "vila";
     private static final String TABLENAME = "VIDEOS";
     
-    public Video(){
+    public VideoServer(){
         this._ID = -1;
         this.autorID = -1;
         this.titulo = null;
@@ -45,7 +45,7 @@ public class Video {
         this.URL = null;
     }    
     
-    public Video(int ID, int autorID, String titulo, String autor, Date fecha, Time duracion, int reproducciones, String descripcion, String formato, String url){
+    public VideoServer(int ID, int autorID, String titulo, String autor, Date fecha, Time duracion, int reproducciones, String descripcion, String formato, String url){
         System.out.println("Creando Video: " + ID + autorID + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + reproducciones + " - " + descripcion + " - " + formato + " - " + url);
         this._ID = ID;
         this.autorID = autorID;
@@ -59,7 +59,7 @@ public class Video {
         this.URL = url;
     }
     
-    public Video(int autorID, String titulo, String autor, Date fecha, Time duracion, String descripcion, String formato, String url){
+    public VideoServer(int autorID, String titulo, String autor, Date fecha, Time duracion, String descripcion, String formato, String url){
         System.out.println("Cargando Video: " + "UNREGISTERED" + " - " + autorID + " - " + " - " + titulo + " - " + autor + " - " + fecha + " - " + duracion + " - " + 0 + " - " + descripcion + " - " + formato + " - " + url);
         this._ID = -1;
         this.autorID = autorID;
@@ -92,8 +92,8 @@ public class Video {
         return result;
     }
     
-    public Video getVideo(){
-        Video video = null;
+    public VideoServer getVideo(){
+        VideoServer video = null;
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
@@ -113,7 +113,7 @@ public class Video {
                 String formato = rs.getString("FORMAT");
                 String url = rs.getString("URL");
                                 
-                video = new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato, url);
+                video = new VideoServer(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato, url);
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
@@ -121,7 +121,7 @@ public class Video {
         return video;
     }    
     
-    public Video deleteVideo(){
+    public VideoServer deleteVideo(){
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
@@ -133,7 +133,7 @@ public class Video {
             System.out.println(err.getMessage());
         }
         
-        return new Video();
+        return new VideoServer();
     }
     
     public ArrayList getAllVideos(int authorID){
@@ -160,7 +160,7 @@ public class Video {
                 String formato = rs.getString("FORMAT");
                 String url = rs.getString("URL");
                                 
-                videosArray.add(new Video(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato, url));
+                videosArray.add(new VideoServer(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato, url));
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
