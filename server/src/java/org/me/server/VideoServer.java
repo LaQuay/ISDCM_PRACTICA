@@ -7,7 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,8 +26,8 @@ public class VideoServer {
     private int autorID;
     private String titulo;
     private String autor;
-    private Date fecha;
-    private Time duracion;
+    private String fecha;
+    private String duracion;
     private int reproducciones;
     private String descripcion;
     private String formato;
@@ -51,8 +57,8 @@ public class VideoServer {
         this.autorID = autorID;
         this.titulo = titulo;
         this.autor = autor;
-        this.fecha = fecha;
-        this.duracion = duracion;
+        this.fecha = fecha.toString();
+        this.duracion = duracion.toString();
         this.reproducciones = reproducciones;
         this.descripcion = descripcion;
         this.formato = formato;
@@ -65,8 +71,8 @@ public class VideoServer {
         this.autorID = autorID;
         this.titulo = titulo;
         this.autor = autor;
-        this.fecha = fecha;
-        this.duracion = duracion;
+        this.fecha = fecha.toString();
+        this.duracion = duracion.toString();
         this.reproducciones = 0;
         this.descripcion = descripcion;
         this.formato = formato;
@@ -227,28 +233,28 @@ public class VideoServer {
     /**
      * @return the fecha
      */
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
     /**
      * @param fecha the fecha to set
      */
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
     /**
      * @return the duracion
      */
-    public Time getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
     /**
      * @param duracion the duracion to set
      */
-    public void setDuracion(Time duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 

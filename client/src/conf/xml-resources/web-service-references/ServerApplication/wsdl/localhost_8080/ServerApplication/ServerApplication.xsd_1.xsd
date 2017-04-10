@@ -15,22 +15,14 @@
 <xs:element name="autor" type="xs:string" minOccurs="0"/>
 <xs:element name="autorID" type="xs:int"/>
 <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
-<xs:element name="duracion" type="tns:time" minOccurs="0"/>
-<xs:element name="fecha" type="tns:date" minOccurs="0"/>
+<xs:element name="duracion" type="xs:string" minOccurs="0"/>
+<xs:element name="fecha" type="xs:string" minOccurs="0"/>
 <xs:element name="formato" type="xs:string" minOccurs="0"/>
 <xs:element name="ID" type="xs:int"/>
 <xs:element name="reproducciones" type="xs:int"/>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
 <xs:element name="URL" type="xs:string" minOccurs="0"/>
 </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="time">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="date">
-<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="add">
