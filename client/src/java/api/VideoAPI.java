@@ -6,6 +6,7 @@ import java.util.List;
 import org.me.server.ServerApplication_Service;
 import org.me.server.ServerApplication;
 import model.Video;
+import org.me.server.VideoServer;
 
 /**
  *
@@ -38,13 +39,13 @@ public class VideoAPI {
         
         ArrayList<Video> arrayVideos = new ArrayList<>();
         for (int i = 0; i < videosList.size(); ++i){
-            org.me.server.Video videoFromServer = (org.me.server.Video) videosList.get(i);
-            /*arrayVideos.add(new Video(
+            VideoServer videoFromServer = (VideoServer) videosList.get(i);
+            arrayVideos.add(new Video(
                     videoFromServer.getID(), videoFromServer.getAutorID(), 
                     videoFromServer.getTitulo(), videoFromServer.getAutor(), 
-                    videoFromServer.getFecha(), videoFromServer.getDuracion(), 
+                    null, null, 
                     videoFromServer.getReproducciones(), videoFromServer.getDescripcion(),
-                    videoFromServer.getFormato(), videoFromServer.getURL()));*/
+                    videoFromServer.getFormato(), videoFromServer.getURL()));
         }
         
         return arrayVideos;
