@@ -142,7 +142,7 @@ public class VideoServer {
         return new VideoServer();
     }
     
-    public ArrayList getAllVideos(int authorID){
+    public ArrayList getAllVideosByAuthorID(int authorID){
         ArrayList videosArray = new ArrayList();
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
@@ -154,24 +154,82 @@ public class VideoServer {
             }
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {                
-                int _ID = rs.getInt("ID");
-                int autorID = rs.getInt("AUTHORID");
-                String titulo = rs.getString("TITLE");
-                String autor = rs.getString("AUTHOR");
-                Date fecha = rs.getDate("DATE");
-                Time duracion = rs.getTime("DURATION");
-                int reproducciones = rs.getInt("VISUALIZATIONS");
-                String descripcion = rs.getString("DESCRIPTION");
-                String formato = rs.getString("FORMAT");
-                String url = rs.getString("URL");
-                                
-                videosArray.add(new VideoServer(_ID, autorID, titulo, autor, fecha, duracion, reproducciones, descripcion, formato, url));
+            while (rs.next()) {
+                videosArray.add(getVideoFromResultSet(rs));
             }            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
         return videosArray;
+    }
+    
+    public ArrayList getAllVideosByTitle(String title){
+        ArrayList videosArray = new ArrayList();
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE title='" + title + "'";
+            System.out.println("Sentencia SQL: " + sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                videosArray.add(getVideoFromResultSet(rs));
+            }            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return videosArray;
+    }   
+    
+    public ArrayList getAllVideosByAuthorName(String authorName){
+        ArrayList videosArray = new ArrayList();
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE AUTHOR='" + authorName + "'";
+            System.out.println("Sentencia SQL: " + sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                videosArray.add(getVideoFromResultSet(rs));
+            }            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return videosArray;
+    }
+    
+    //TODO la comprobación no ha de ser por Date si no por el Year
+    public ArrayList getAllVideosByYear(int year){
+        ArrayList videosArray = new ArrayList();
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE DATE=" + year;
+            System.out.println("Sentencia SQL: " + sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                videosArray.add(getVideoFromResultSet(rs));
+            }            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return videosArray;
+    }
+    
+    private VideoServer getVideoFromResultSet(ResultSet rs) throws SQLException{
+        return new VideoServer(
+                rs.getInt("ID"),
+                rs.getInt("AUTHORID"),
+                rs.getString("TITLE"),
+                rs.getString("AUTHOR"),
+                rs.getDate("DATE"),
+                rs.getTime("DURATION"),
+                rs.getInt("VISUALIZATIONS"),
+                rs.getString("DESCRIPTION"),
+                rs.getString("FORMAT"),
+                rs.getString("URL"));
     }
 
     /**
