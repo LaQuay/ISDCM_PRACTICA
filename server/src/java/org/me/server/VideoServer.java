@@ -199,14 +199,13 @@ public class VideoServer {
         return videosArray;
     }
     
-    //TODO la comprobación no ha de ser por Date si no por el Year
     public ArrayList getAllVideosByYear(int year){
         ArrayList videosArray = new ArrayList();
         try {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE DATE=" + year;
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE year(DATE)=" + year;
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
