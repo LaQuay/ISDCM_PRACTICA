@@ -1,22 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://server.me.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://server.me.org/">
 
-<xs:element name="Video" type="tns:video"/>
+<xs:element name="Video" type="tns:videoServer"/>
 
 <xs:element name="add" type="tns:add"/>
 
 <xs:element name="addResponse" type="tns:addResponse"/>
 
-<xs:element name="getVideos" type="tns:getVideos"/>
+<xs:element name="getVideosByAuthorID" type="tns:getVideosByAuthorID"/>
 
-<xs:element name="getVideosResponse" type="tns:getVideosResponse"/>
+<xs:element name="getVideosByAuthorIDResponse" type="tns:getVideosByAuthorIDResponse"/>
 
-<xs:complexType name="video">
+<xs:element name="getVideosByAuthorName" type="tns:getVideosByAuthorName"/>
+
+<xs:element name="getVideosByAuthorNameResponse" type="tns:getVideosByAuthorNameResponse"/>
+
+<xs:element name="getVideosByTitle" type="tns:getVideosByTitle"/>
+
+<xs:element name="getVideosByTitleResponse" type="tns:getVideosByTitleResponse"/>
+
+<xs:element name="getVideosByYear" type="tns:getVideosByYear"/>
+
+<xs:element name="getVideosByYearResponse" type="tns:getVideosByYearResponse"/>
+
+<xs:complexType name="videoServer">
 <xs:sequence>
 <xs:element name="autor" type="xs:string" minOccurs="0"/>
 <xs:element name="autorID" type="xs:int"/>
 <xs:element name="descripcion" type="xs:string" minOccurs="0"/>
-<xs:element name="duracion" type="tns:time" minOccurs="0"/>
-<xs:element name="fecha" type="tns:date" minOccurs="0"/>
+<xs:element name="duracion" type="xs:string" minOccurs="0"/>
+<xs:element name="fecha" type="xs:string" minOccurs="0"/>
 <xs:element name="formato" type="xs:string" minOccurs="0"/>
 <xs:element name="ID" type="xs:int"/>
 <xs:element name="reproducciones" type="xs:int"/>
@@ -25,12 +37,28 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="time">
-<xs:sequence/>
+<xs:complexType name="getVideosByTitle">
+<xs:sequence>
+<xs:element name="title" type="xs:string" minOccurs="0"/>
+</xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="date">
-<xs:sequence/>
+<xs:complexType name="getVideosByTitleResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorID">
+<xs:sequence>
+<xs:element name="idAuthor" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorIDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="add">
@@ -46,13 +74,25 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getVideos">
+<xs:complexType name="getVideosByYear">
 <xs:sequence>
-<xs:element name="idAuthor" type="xs:int"/>
+<xs:element name="year" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getVideosResponse">
+<xs:complexType name="getVideosByYearResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorName">
+<xs:sequence>
+<xs:element name="authorName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorNameResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

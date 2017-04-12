@@ -22,6 +22,10 @@ import org.me.server.VideoServer;
  * @author marc.vila.gomez
  */
 public class VideoAPI {
+    public static final String QUERY_VIDEOS_BY_TITLE = "QUERY_VIDEOS_BY_TITLE";
+    public static final String QUERY_VIDEOS_BY_AUTHOR = "QUERY_VIDEOS_BY_AUTHOR";
+    public static final String QUERY_VIDEOS_BY_AUTHOR_ID = "QUERY_VIDEOS_BY_AUTHOR_ID";
+    public static final String QUERY_VIDEOS_BY_YEAR = "QUERY_VIDEOS_BY_YEAR";
     
     public VideoAPI(){
         try {
@@ -40,11 +44,20 @@ public class VideoAPI {
         return port.add(i, j);
     }
     
-    public static ArrayList getAllVideos(int idUsuario){
+    public static ArrayList getAllVideos(String queryType, String value){
         ServerApplication_Service service = new org.me.server.ServerApplication_Service();
         ServerApplication port = service.getServerApplicationPort();
         
-        List videosList = port.getVideos(idUsuario);
+        List videosList = null;
+        if (queryType.equals(QUERY_VIDEOS_BY_TITLE)){
+            videosList = port.getVideosByTitle(value);               
+        } else if (queryType.equals(QUERY_VIDEOS_BY_AUTHOR)){
+            videosList = port.getVideosByAuthorName(value);            
+        } else if (queryType.equals(QUERY_VIDEOS_BY_YEAR)){
+            videosList = port.getVideosByYear(Integer.parseInt(value));               
+        } else {
+            videosList = port.getVideosByAuthorID(Integer.parseInt(value));            
+        }        
         
         ArrayList<Video> arrayVideos = new ArrayList<>();
         for (int i = 0; i < videosList.size(); ++i){

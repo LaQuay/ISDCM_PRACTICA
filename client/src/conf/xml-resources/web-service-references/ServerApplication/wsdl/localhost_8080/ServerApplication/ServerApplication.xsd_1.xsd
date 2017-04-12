@@ -6,9 +6,21 @@
 
 <xs:element name="addResponse" type="tns:addResponse"/>
 
-<xs:element name="getVideos" type="tns:getVideos"/>
+<xs:element name="getVideosByAuthorID" type="tns:getVideosByAuthorID"/>
 
-<xs:element name="getVideosResponse" type="tns:getVideosResponse"/>
+<xs:element name="getVideosByAuthorIDResponse" type="tns:getVideosByAuthorIDResponse"/>
+
+<xs:element name="getVideosByAuthorName" type="tns:getVideosByAuthorName"/>
+
+<xs:element name="getVideosByAuthorNameResponse" type="tns:getVideosByAuthorNameResponse"/>
+
+<xs:element name="getVideosByTitle" type="tns:getVideosByTitle"/>
+
+<xs:element name="getVideosByTitleResponse" type="tns:getVideosByTitleResponse"/>
+
+<xs:element name="getVideosByYear" type="tns:getVideosByYear"/>
+
+<xs:element name="getVideosByYearResponse" type="tns:getVideosByYearResponse"/>
 
 <xs:complexType name="videoServer">
 <xs:sequence>
@@ -25,6 +37,30 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getVideosByTitle">
+<xs:sequence>
+<xs:element name="title" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByTitleResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorID">
+<xs:sequence>
+<xs:element name="idAuthor" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorIDResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="add">
 <xs:sequence>
 <xs:element name="i" type="xs:int"/>
@@ -38,13 +74,25 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getVideos">
+<xs:complexType name="getVideosByYear">
 <xs:sequence>
-<xs:element name="idAuthor" type="xs:int"/>
+<xs:element name="year" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getVideosResponse">
+<xs:complexType name="getVideosByYearResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorName">
+<xs:sequence>
+<xs:element name="authorName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVideosByAuthorNameResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

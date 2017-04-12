@@ -27,7 +27,17 @@
                                     </tr>                                    
                                 </thead>
                                 
-                                <body>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <form class="uk-form" style="text-align: left !important" action="servletControlPanel">
+                                                <input class="uk-button uk-button-link" type="submit" name="listvideo" value="Listar videos">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                                 <tbody>
                                     <tr>
                                         <td>
                                             <form class="uk-form" style="text-align: left !important" action="servletControlPanel">
@@ -35,7 +45,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                </body>
+                                </tbody>
                             </table>
                             
                             <table class="uk-table vertical-line">
@@ -45,7 +55,7 @@
                                     </tr>                                    
                                 </thead>
                                 
-                                <body>
+                                <tbody>
                                     <tr>
                                         <td>
                                             <form class="uk-form" style="text-align: left !important" action="servletControlPanel">
@@ -53,62 +63,81 @@
                                             </form>
                                         </td>
                                     </tr>
-                                </body>
+                                </tbody>
                             </table>
                         </div>                        
 
                         <div class="uk-width-3-4">
-                            <h3>Listado de vídeos</h3>
+                            <form class="uk-form">
+                                <fieldset data-uk-margin>
+                                    <legend>Filtrado de vídeos</legend>
+                                    Filtrar por:
+                                    <select name="queryselect">
+                                        <option>Titulo</option>
+                                        <option>Nombre de autor</option>
+                                        <option>Año</option>
+                                        <option>ID de autor</option>
+                                    </select>
+                                    <input type="text" name="querytext">
+                                    <input class="uk-button" type="submit" name="listfilteredvideos" value="GO">
+                                </fieldset>
+                            </form>
                             
-                            <table class="uk-table uk-table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Título</th>
-                                        <th>Autor</th>
-                                        <th>Fecha</th>
-                                        <th>Duración</th>
-                                        <th>Reprod.</th>
-                                        <th>Descrip.</th>
-                                        <th>Formato</th>
-                                        <th>URL</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
-                                        ArrayList videosArray = (ArrayList) request.getSession().getAttribute(servletCtrlPan.attributeVideosArray);
-                                        
-                                        for (int i = 0; i < videosArray.size(); ++i){
-                                            Video video = (Video) videosArray.get(i);
-                                            
-                                            out.println("<tr>");
-                                            out.println("<td>" + video.getTitulo() + "</td>"); 
-                                            out.println("<td>" + video.getAutor()+ "</td>"); 
-                                            out.println("<td>" + video.getFecha()+ "</td>"); 
-                                            out.println("<td>" + video.getDuracion()+ "</td>"); 
-                                            out.println("<td>" + video.getReproducciones()+ "</td>"); 
-                                            out.println("<td>" + video.getDescripcion()+ "</td>"); 
-                                            out.println("<td>" + video.getFormato()+ "</td>"); 
-                                            String videoURL = video.getURL();
-                                            if (videoURL != null && !videoURL.equals("")){
-                                                out.println("<td> <a href='" + videoURL + "'> Enlace" + "</td>"); 
-                                            } else {
-                                                out.println("<td> </td>"); 
-                                            }
-                                            out.println("<td>");
-                                            out.println("<form class='uk-form' action='servletControlPanel'>");
-                                            
-                                            out.println("<div class='uk-button uk-button-danger'>");
-                                            out.println("<i class='uk-icon-minus-square'></i>");
-                                            out.println("<input class='uk-button-link' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
-                                            out.println("</div>");
-                                            out.println("</form>");
-                                            out.println("</td>");
-                                            out.println("<tr>");
-                                        }                                    
-                                    %>
-                                </tbody>                                
-                            </table>
+                            <form class="uk-form" style="margin-top: 30px">
+                                <fieldset data-uk-margin>
+                                    <legend>Listado de vídeos</legend>
+                            
+                                    <table class="uk-table uk-table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Título</th>
+                                                <th>Autor</th>
+                                                <th>Fecha</th>
+                                                <th>Duración</th>
+                                                <th>Reprod.</th>
+                                                <th>Descrip.</th>
+                                                <th>Formato</th>
+                                                <th>URL</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                ArrayList videosArray = (ArrayList) request.getSession().getAttribute(servletCtrlPan.attributeVideosArray);
+
+                                                for (int i = 0; i < videosArray.size(); ++i){
+                                                    Video video = (Video) videosArray.get(i);
+
+                                                    out.println("<tr>");
+                                                    out.println("<td>" + video.getTitulo() + "</td>"); 
+                                                    out.println("<td>" + video.getAutor()+ "</td>"); 
+                                                    out.println("<td>" + video.getFecha()+ "</td>"); 
+                                                    out.println("<td>" + video.getDuracion()+ "</td>"); 
+                                                    out.println("<td>" + video.getReproducciones()+ "</td>"); 
+                                                    out.println("<td>" + video.getDescripcion()+ "</td>"); 
+                                                    out.println("<td>" + video.getFormato()+ "</td>"); 
+                                                    String videoURL = video.getURL();
+                                                    if (videoURL != null && !videoURL.equals("")){
+                                                        out.println("<td> <a href='" + videoURL + "'> Enlace" + "</td>"); 
+                                                    } else {
+                                                        out.println("<td> </td>"); 
+                                                    }
+                                                    out.println("<td>");
+                                                    out.println("<form class='uk-form' action='servletControlPanel'>");
+
+                                                    out.println("<div class='uk-button uk-button-danger'>");
+                                                    out.println("<i class='uk-icon-minus-square'></i>");
+                                                    out.println("<input class='uk-button-link' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
+                                                    out.println("</div>");
+                                                    out.println("</form>");
+                                                    out.println("</td>");
+                                                    out.println("<tr>");
+                                                }                                    
+                                            %>
+                                        </tbody>                                
+                                    </table>
+                                </fieldset>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -52,7 +52,25 @@ public class servletControlPanel extends HttpServlet {
             } catch (Exception e){
                 System.err.println(e.toString());
             }
-            ArrayList videosArray = VideoAPI.getAllVideos(idUsuario);
+            
+            //TODO Hacer solo caso principal, el else
+            ArrayList videosArray = new ArrayList();
+            if (request.getParameter("listfilteredvideos") != null && request.getParameter("querytext") != null && !request.getParameter("querytext").equals("")){
+                String querySelect = request.getParameter("queryselect");
+                String queryText = request.getParameter("querytext");
+                
+                if (querySelect.equals("Titulo")){
+                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_TITLE, queryText);
+                } else if (querySelect.equals("Nombre de autor")){
+                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR, queryText);                    
+                } else if (querySelect.equals("Año") || querySelect.equals("AÃ±o")){
+                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_YEAR, queryText);                    
+                } else if (querySelect.equals("ID de autor")){
+                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, queryText);                    
+                }
+            } else {
+                videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, ""+idUsuario);                
+            }
             
             if (request.getParameter("title") != null) {
                 System.out.println("Añadiendo video");
@@ -92,6 +110,13 @@ public class servletControlPanel extends HttpServlet {
             } else if (request.getParameter("addvideo") != null) {
                 System.out.println("Abriendo página para añadir video");
                 request.getRequestDispatcher("/addvideo.html").forward(request, response);
+            } else if (request.getParameter("listvideo") != null) {
+                System.out.println("Abriendo página para listar video");
+                response.setHeader("Refresh", "0;url=servletControlPanel");  
+            } else if (request.getParameter("listfilteredvideos") != null) {
+                System.out.println("Filtrando por...");
+                //queryValue
+                
             } else if (isRequestForDelete(request, videosArray)) {
                 System.out.println("Borrando video");
                 
