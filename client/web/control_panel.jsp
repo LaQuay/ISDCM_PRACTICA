@@ -118,7 +118,7 @@
                                                     out.println("<td>" + video.getFormato()+ "</td>"); 
                                                     String videoURL = video.getURL();
                                                     if (videoURL != null && !videoURL.equals("")){
-                                                        out.println("<td> <a href='" + videoURL + "'> Enlace" + "</td>"); 
+                                                        out.println("<td> <a href='" + videoURL + "' target='_blank'> Enlace" + "</td>"); 
                                                     } else {
                                                         out.println("<td> </td>"); 
                                                     }
