@@ -2,10 +2,6 @@
 
 <xs:element name="Video" type="tns:videoServer"/>
 
-<xs:element name="add" type="tns:add"/>
-
-<xs:element name="addResponse" type="tns:addResponse"/>
-
 <xs:element name="getVideosByAuthorID" type="tns:getVideosByAuthorID"/>
 
 <xs:element name="getVideosByAuthorIDResponse" type="tns:getVideosByAuthorIDResponse"/>
@@ -58,19 +54,6 @@
 <xs:complexType name="getVideosByAuthorIDResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="add">
-<xs:sequence>
-<xs:element name="i" type="xs:int"/>
-<xs:element name="j" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="addResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 

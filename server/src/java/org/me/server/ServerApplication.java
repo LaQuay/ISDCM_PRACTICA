@@ -18,17 +18,6 @@ public class ServerApplication {
 
     /**
      * Web service operation
-     * @param i
-     * @param j
-     * @return 
-     */
-    @WebMethod(operationName = "add")
-    public int add(@WebParam(name = "i") int i, @WebParam(name = "j") int j) {
-        return i + j;
-    }
-
-    /**
-     * Web service operation
      * @param idAuthor
      * @return 
      */

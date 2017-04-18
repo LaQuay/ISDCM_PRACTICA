@@ -4,12 +4,6 @@
 <xsd:import namespace="http://server.me.org/" schemaLocation="http://localhost:8080/ServerApplication/ServerApplication?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="add">
-<part name="parameters" element="tns:add"/>
-</message>
-<message name="addResponse">
-<part name="parameters" element="tns:addResponse"/>
-</message>
 <message name="getVideosByAuthorName">
 <part name="parameters" element="tns:getVideosByAuthorName"/>
 </message>
@@ -35,10 +29,6 @@
 <part name="parameters" element="tns:getVideosByYearResponse"/>
 </message>
 <portType name="ServerApplication">
-<operation name="add">
-<input wsam:Action="http://server.me.org/ServerApplication/addRequest" message="tns:add"/>
-<output wsam:Action="http://server.me.org/ServerApplication/addResponse" message="tns:addResponse"/>
-</operation>
 <operation name="getVideosByAuthorName">
 <input wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorNameRequest" message="tns:getVideosByAuthorName"/>
 <output wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorNameResponse" message="tns:getVideosByAuthorNameResponse"/>
@@ -58,15 +48,6 @@
 </portType>
 <binding name="ServerApplicationPortBinding" type="tns:ServerApplication">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="add">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getVideosByAuthorName">
 <soap:operation soapAction=""/>
 <input>
