@@ -181,7 +181,7 @@ public class VideoServer {
             Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
             Statement stmt = conn.createStatement();
             
-            String sql = "SELECT * FROM " + TABLENAME + " WHERE AUTHOR='" + authorName + "'";
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE AUTHOR LIKE '%" + authorName + "%'";
             System.out.println("Sentencia SQL: " + sql);
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
