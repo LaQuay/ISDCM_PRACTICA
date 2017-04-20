@@ -9,6 +9,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="uikit_marc.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        
+        <%!
+        public String isSelectionSelected(String currentText, String currentSelection){
+            if (currentText != null && currentSelection != null && currentText.equals(currentSelection)) {
+                return "selected";
+            }
+
+            // No deberia estar este caso, pero por problemas con el lenguaje la añado
+            if (currentText != null && currentText.equals("Año") && currentSelection != null && currentSelection.equals("AÃ±o")) {
+                return "selected";
+            }
+            return "";
+        }
+        %>
     </head>
     <body class="uk-height-1-1 ">
         <div class="uk-vertical-align uk-text-center uk-height-1-1">
@@ -73,12 +87,19 @@
                                     <legend>Filtrado de vídeos</legend>
                                     Filtrar por:
                                     <select name="queryselect">
-                                        <option>Titulo</option>
-                                        <option>Nombre de autor</option>
-                                        <option>Año</option>
-                                        <option>ID de autor</option>
+                                        <option <%= isSelectionSelected("Titulo", request.getParameter("queryselect"))%>>Titulo</option>
+                                        <option <%= isSelectionSelected("Nombre de autor", request.getParameter("queryselect"))%>>Nombre de autor</option>
+                                        <option <%= isSelectionSelected("Año", request.getParameter("queryselect"))%>>Año</option>
+                                        <option <%= isSelectionSelected("ID de autor", request.getParameter("queryselect"))%>>ID de autor</option>
                                     </select>
-                                    <input type="text" name="querytext">
+                                    <% 
+                                        String inputTextDefaultValue = "";
+                                        String queryText = (String) request.getParameter("querytext");
+                                        if (queryText != null && !queryText.equals("null")) {
+                                            inputTextDefaultValue = queryText;
+                                        }
+                                    %>
+                                    <input type="text" name="querytext" value="<%= inputTextDefaultValue %>">
                                     <input class="uk-button" type="submit" name="listfilteredvideos" value="GO">
                                 </fieldset>
                             </form>
