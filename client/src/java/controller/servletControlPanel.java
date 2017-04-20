@@ -53,27 +53,8 @@ public class servletControlPanel extends HttpServlet {
                 System.err.println(e.toString());
             }
             
-            //TODO Hacer solo caso principal, el else
             ArrayList videosArray = new ArrayList();
-            if (request.getParameter("listfilteredvideos") != null && request.getParameter("querytext") != null && !request.getParameter("querytext").equals("")){
-                String querySelect = request.getParameter("queryselect");
-                String queryText = request.getParameter("querytext");
-                
-                if (querySelect.equals("Titulo")){
-                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_TITLE, queryText);
-                } else if (querySelect.equals("Nombre de autor")){
-                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR, queryText);                    
-                } else if (querySelect.equals("Año") || querySelect.equals("AÃ±o")){
-                    String valueString = "0";
-                    try {
-                        Integer valueInteger = Integer.parseInt(queryText);
-                        valueString = queryText;
-                    } catch (NumberFormatException e) {}
-                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_YEAR, valueString);                    
-                } else if (querySelect.equals("ID de autor")){
-                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, queryText);                    
-                }
-            } else {
+            if (request.getParameter("listfilteredvideos") == null) {
                 videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, ""+idUsuario);                
             }
             
@@ -121,7 +102,31 @@ public class servletControlPanel extends HttpServlet {
             } else if (request.getParameter("listfilteredvideos") != null) {
                 System.out.println("Filtrando por...");
                 //queryValue
+                String querySelect = request.getParameter("queryselect");
+                String queryText = request.getParameter("querytext");
                 
+                switch (querySelect) {
+                    case "Titulo":
+                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_TITLE, queryText);
+                        break;
+                    case "Nombre de autor":
+                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR, queryText);
+                        break;
+                    case "Año":
+                    case "AÃ±o":
+                        String valueString = "0";
+                        try {
+                            Integer valueInteger = Integer.parseInt(queryText);
+                            valueString = queryText;                    
+                        } catch (NumberFormatException e) {}
+                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_YEAR, valueString);
+                        break;
+                    case "ID de autor":
+                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, queryText);
+                        break;
+                    default:
+                        break;
+                }                
             } else if (isRequestForDelete(request, videosArray)) {
                 System.out.println("Borrando video");
                 
