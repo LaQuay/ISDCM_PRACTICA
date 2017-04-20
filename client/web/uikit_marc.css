@@ -12,6 +12,11 @@ html {
 .vertical-line {
   border-right: thin solid darkgray;
 }
+
+.input-cursor-pointer {
+    cursor: pointer !important;
+}
+
 /* End by Marc */
 
 body {

@@ -99,8 +99,12 @@
                                             inputTextDefaultValue = queryText;
                                         }
                                     %>
-                                    <input type="text" name="querytext" value="<%= inputTextDefaultValue %>">
-                                    <input class="uk-button" type="submit" name="listfilteredvideos" value="GO">
+                                    <input type="text" name="querytext" value="<%= inputTextDefaultValue %>" required>
+                                    
+                                    <div class='uk-button'>
+                                        <i class='uk-icon-search'></i>
+                                        <input class='uk-button-link input-cursor-pointer' type='submit' name='listfilteredvideos' value='Buscar'>
+                                    </div>
                                 </fieldset>
                             </form>
                             
@@ -148,7 +152,7 @@
 
                                                     out.println("<div class='uk-button uk-button-danger'>");
                                                     out.println("<i class='uk-icon-minus-square'></i>");
-                                                    out.println("<input class='uk-button-link' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
+                                                    out.println("<input class='uk-button-link input-cursor-pointer' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
                                                     out.println("</div>");
                                                     out.println("</form>");
                                                     out.println("</td>");
