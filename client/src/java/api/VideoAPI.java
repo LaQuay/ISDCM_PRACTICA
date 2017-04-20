@@ -27,22 +27,7 @@ public class VideoAPI {
     public static final String QUERY_VIDEOS_BY_AUTHOR_ID = "QUERY_VIDEOS_BY_AUTHOR_ID";
     public static final String QUERY_VIDEOS_BY_YEAR = "QUERY_VIDEOS_BY_YEAR";
     
-    public VideoAPI(){
-        try {
-            int i = 3;
-            int j = 4;
-            int result = add(i, j);
-            System.out.println("Result = " + result);
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex);
-        }
-    }
-    
-    private static int add(int i, int j) {
-        ServerApplication_Service service = new org.me.server.ServerApplication_Service();
-        ServerApplication port = service.getServerApplicationPort();
-        return port.add(i, j);
-    }
+    public VideoAPI(){}
     
     public static ArrayList getAllVideos(String queryType, String value){
         ServerApplication_Service service = new org.me.server.ServerApplication_Service();
