@@ -64,7 +64,12 @@ public class servletControlPanel extends HttpServlet {
                 } else if (querySelect.equals("Nombre de autor")){
                     videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR, queryText);                    
                 } else if (querySelect.equals("Año") || querySelect.equals("AÃ±o")){
-                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_YEAR, queryText);                    
+                    String valueString = "0";
+                    try {
+                        Integer valueInteger = Integer.parseInt(queryText);
+                        valueString = queryText;
+                    } catch (NumberFormatException e) {}
+                    videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_YEAR, valueString);                    
                 } else if (querySelect.equals("ID de autor")){
                     videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, queryText);                    
                 }
