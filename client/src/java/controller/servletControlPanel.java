@@ -58,44 +58,9 @@ public class servletControlPanel extends HttpServlet {
                 videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR_ID, ""+idUsuario);                
             }
             
-            if (request.getParameter("title") != null) {
-                System.out.println("Añadiendo video");
-                
-                String title = request.getParameter("title");
-                
-                String author = request.getParameter("author");
-                
-                String dateString = request.getParameter("date");
-                
-                java.util.Date utilDate = new Date(Calendar.getInstance().getTimeInMillis());
-                try {
-                    utilDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateString);
-                } catch (ParseException ex) {
-                    Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Date sqlDate = new Date(utilDate.getTime());
-                
-                String timeString = request.getParameter("duration");
-                try {
-                    utilDate = new SimpleDateFormat("hh:mm", Locale.ENGLISH).parse(timeString);
-                } catch (ParseException ex) {
-                    Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Time sqlTime = new Time(utilDate.getTime());
-                
-                String description = request.getParameter("description");
-                
-                String format = request.getParameter("format");
-                
-                String url = request.getParameter("url");
-                
-                Video video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
-                boolean videoCreated = video.createVideo();
-                
-                response.setHeader("Refresh", "0;url=servletControlPanel");
-            } else if (request.getParameter("addvideo") != null) {
+            if (request.getParameter("addvideo") != null) {
                 System.out.println("Abriendo página para añadir video");
-                request.getRequestDispatcher("/addvideo.html").forward(request, response);
+                response.setHeader("Refresh", "0;url=servletVideoManagement");  
             } else if (request.getParameter("listvideo") != null) {
                 System.out.println("Abriendo página para listar video");
                 response.setHeader("Refresh", "0;url=servletControlPanel");  
