@@ -1,6 +1,6 @@
 package controller;
 
-import api.VideoAPI;
+import api.VideoAPIController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -55,7 +55,7 @@ public class servletControlPanel extends HttpServlet {
             
             ArrayList videosArray = new ArrayList();
             if (request.getParameter("listfilteredvideos") == null) {
-                videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, ""+idUsuario);                
+                videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR_ID, ""+idUsuario);                
             }
             
             if (request.getParameter("title") != null) {
@@ -107,10 +107,10 @@ public class servletControlPanel extends HttpServlet {
                 
                 switch (querySelect) {
                     case "Titulo":
-                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_TITLE, queryText);
+                        videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_TITLE, queryText);
                         break;
                     case "Nombre de autor":
-                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR, queryText);
+                        videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR, queryText);
                         break;
                     case "Año":
                     case "AÃ±o":
@@ -119,10 +119,10 @@ public class servletControlPanel extends HttpServlet {
                             Integer valueInteger = Integer.parseInt(queryText);
                             valueString = queryText;                    
                         } catch (NumberFormatException e) {}
-                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_YEAR, valueString);
+                        videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_YEAR, valueString);
                         break;
                     case "ID de autor":
-                        videosArray = VideoAPI.getAllVideos(VideoAPI.QUERY_VIDEOS_BY_AUTHOR_ID, queryText);
+                        videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR_ID, queryText);
                         break;
                     default:
                         break;
@@ -132,7 +132,7 @@ public class servletControlPanel extends HttpServlet {
                 
                 Video video = getVideoForDelete(request, videosArray);
                 if (video != null){
-                    video = video.deleteVideo();
+                    video.deleteVideo();
                 }
                 
                 response.setHeader("Refresh", "0;url=servletControlPanel");              
