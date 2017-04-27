@@ -79,7 +79,12 @@ public class servletControlPanel extends HttpServlet {
                         videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_YEAR, valueString);
                         break;
                     case "ID de autor":
-                        videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR_ID, queryText);
+                        valueString = "0";
+                        try {
+                            Integer valueInteger = Integer.parseInt(queryText);
+                            valueString = queryText;                    
+                        } catch (NumberFormatException e) {}
+                        videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR_ID, valueString);
                         break;
                     default:
                         break;
