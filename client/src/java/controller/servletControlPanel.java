@@ -50,8 +50,18 @@ public class servletControlPanel extends HttpServlet {
                 videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR_ID, ""+idUsuario);                
             }
             
+            request.getSession().setAttribute(attributeVideosArray, videosArray);
+            
             if (request.getParameter("addvideo") != null) {
                 System.out.println("Abriendo página para añadir video");
+                request.getSession().setAttribute("START_ACTION", "ADD");
+                response.setHeader("Refresh", "0;url=servletVideoManagement");  
+            } else if (isRequestForPlay(request, videosArray)) {
+                System.out.println("Abriendo página para reproducir video");
+                
+                int videoIDtoPlay = getVideoForPlay(request, videosArray);
+                request.getSession().setAttribute("START_ACTION", "PLAY");
+                request.getSession().setAttribute("VIDEO_PLAY", videoIDtoPlay + "");
                 response.setHeader("Refresh", "0;url=servletVideoManagement");  
             } else if (request.getParameter("listvideo") != null) {
                 System.out.println("Abriendo página para listar video");
@@ -88,7 +98,10 @@ public class servletControlPanel extends HttpServlet {
                         break;
                     default:
                         break;
-                }                
+                }   
+                
+                request.getSession().setAttribute(attributeVideosArray, videosArray);
+                request.getRequestDispatcher("/control_panel.jsp").forward(request, response);                       
             } else if (isRequestForDelete(request, videosArray)) {
                 System.out.println("Borrando video");
                 
@@ -100,14 +113,12 @@ public class servletControlPanel extends HttpServlet {
                 response.setHeader("Refresh", "0;url=servletControlPanel");              
             } else if (request.getParameter("logout") != null) {
                 System.out.println("Haciendo logout");
-                request.getSession().setAttribute(attributeLoggedIn, false);                
+                request.getSession().setAttribute(attributeLoggedIn, false);             
                 
                 request.getRequestDispatcher("/index.html").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/control_panel.jsp").forward(request, response);                
             }
-            
-            request.getSession().setAttribute(attributeVideosArray, videosArray);
-            
-            request.getRequestDispatcher("/control_panel.jsp").forward(request, response);
         }
     }
     
@@ -131,6 +142,28 @@ public class servletControlPanel extends HttpServlet {
         }
         
         return null;
+    }
+    
+    private boolean isRequestForPlay(HttpServletRequest request, ArrayList videosArray) {        
+        for (int i = 0; i < videosArray.size(); ++i){
+            Video currentVideo = (Video) videosArray.get(i);
+            if (request.getParameter("playvideo#" + currentVideo.getID()) != null){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private int getVideoForPlay(HttpServletRequest request, ArrayList videosArray){
+        for (int i = 0; i < videosArray.size(); ++i){
+            Video currentVideo = (Video) videosArray.get(i);
+            if (request.getParameter("playvideo#" + currentVideo.getID()) != null){
+                return currentVideo.getID();
+            }
+        }
+        
+        return -1;
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
