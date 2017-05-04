@@ -149,10 +149,17 @@
                                                     }
                                                     out.println("<td>");
                                                     out.println("<form class='uk-form' action='servletControlPanel'>");
-
                                                     out.println("<div class='uk-button uk-button-danger'>");
                                                     out.println("<i class='uk-icon-minus-square'></i>");
                                                     out.println("<input class='uk-button-link input-cursor-pointer' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
+                                                    out.println("</div>");
+                                                    out.println("</form>");
+                                                    out.println("</td>");
+                                                    out.println("<td>");
+                                                    out.println("<form class='uk-form' action='servletControlPanel'>");
+                                                    out.println("<div class='uk-button uk-button-success'>");
+                                                    out.println("<i class='uk-icon-play-circle'></i>");
+                                                    out.println("<input class='uk-button-link input-cursor-pointer' type='submit' name='playvideo#" + video.getID() + "' value='Play'>");
                                                     out.println("</div>");
                                                     out.println("</form>");
                                                     out.println("</td>");
