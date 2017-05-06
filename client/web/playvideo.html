@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html class="uk-height-1-1">
     <head>
-        <title>Añadir libro</title>
+        <title>Reproducir video</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="uikit_marc.css">
         <link rel="stylesheet" type="text/css" href="skin/pink.flag/css/jplayer.pink.flag.min.css"/>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+              $("#jquery_jplayer_1").jPlayer({
+                ready: function () {
+                  $(this).jPlayer("setMedia", {
+                    title: "Big Buck Bunny Trailer",
+                    m4v: "http://localhost:8080/server/films/film2.m4v"
+                  });
+                },
+                cssSelectorAncestor: "#jp_container_1",
+                swfPath: "/js",
+                supplied: "m4v",
+                useStateClassSkin: true,
+                autoBlur: false,
+                smoothPlayBar: true,
+                keyEnabled: true,
+                remainingDuration: true,
+                toggleDuration: true
+              });
+            });
+        </script>
     </head>
     <body class="uk-height-1-1">
         <div class="uk-vertical-align uk-text-center uk-height-1-1">        
