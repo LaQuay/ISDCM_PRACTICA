@@ -50,50 +50,50 @@ public class servletVideoManagement extends HttpServlet {
                 System.err.println(e.toString());
             }
             
+            
+            if (request.getParameter("title") != null) {
+                System.out.println("Añadiendo video");
+
+                String title = request.getParameter("title");
+
+                String author = request.getParameter("author");
+
+                String dateString = request.getParameter("date");
+
+                java.util.Date utilDate = new Date(Calendar.getInstance().getTimeInMillis());
+                try {
+                    utilDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateString);
+                } catch (ParseException ex) {
+                    Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Date sqlDate = new Date(utilDate.getTime());
+
+                String timeString = request.getParameter("duration");
+                try {
+                    utilDate = new SimpleDateFormat("hh:mm", Locale.ENGLISH).parse(timeString);
+                } catch (ParseException ex) {
+                    Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Time sqlTime = new Time(utilDate.getTime());
+
+                String description = request.getParameter("description");
+
+                String format = request.getParameter("format");
+
+                String url = request.getParameter("url");
+
+                Video video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
+                boolean videoCreated = video.createVideo(); 
+
+                response.setHeader("Refresh", "0;url=servletControlPanel");
+            }
+            
             String headerValue = (String) request.getSession().getAttribute("START_ACTION");
-            if (headerValue != null && !headerValue.equals("")){
+            if (headerValue != null && !headerValue.equals("NOACTION")){
                 if (headerValue.equals("ADD")){
                     request.getRequestDispatcher("/addvideo.html").forward(request, response);                    
                 } else if (headerValue.equals("PLAY")){
                     request.getRequestDispatcher("/playvideo.html").forward(request, response);                    
-                }
-                request.getSession().setAttribute("START_ACTION", "");
-            } else {
-                if (request.getParameter("title") != null) {
-                    System.out.println("Añadiendo video");
-
-                    String title = request.getParameter("title");
-
-                    String author = request.getParameter("author");
-
-                    String dateString = request.getParameter("date");
-
-                    java.util.Date utilDate = new Date(Calendar.getInstance().getTimeInMillis());
-                    try {
-                        utilDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(dateString);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    Date sqlDate = new Date(utilDate.getTime());
-
-                    String timeString = request.getParameter("duration");
-                    try {
-                        utilDate = new SimpleDateFormat("hh:mm", Locale.ENGLISH).parse(timeString);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(servletControlPanel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    Time sqlTime = new Time(utilDate.getTime());
-
-                    String description = request.getParameter("description");
-
-                    String format = request.getParameter("format");
-
-                    String url = request.getParameter("url");
-
-                    Video video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
-                    boolean videoCreated = video.createVideo(); 
-
-                    response.setHeader("Refresh", "0;url=servletControlPanel");
                 }
             }
         }

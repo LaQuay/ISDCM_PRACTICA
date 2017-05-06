@@ -50,6 +50,7 @@ public class servletControlPanel extends HttpServlet {
                 videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_AUTHOR_ID, ""+idUsuario);                
             }
             
+            request.getSession().setAttribute("START_ACTION", "NOACTION");
             request.getSession().setAttribute(attributeVideosArray, videosArray);
             
             if (request.getParameter("addvideo") != null) {
