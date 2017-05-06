@@ -122,7 +122,8 @@
                                                 <th>Reprod.</th>
                                                 <th>Descrip.</th>
                                                 <th>Formato</th>
-                                                <th>URL</th>
+                                                <th></th>
+                                                <th></th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -141,25 +142,31 @@
                                                     out.println("<td>" + video.getReproducciones()+ "</td>"); 
                                                     out.println("<td>" + video.getDescripcion()+ "</td>"); 
                                                     out.println("<td>" + video.getFormato()+ "</td>"); 
+                                                    
+                                                    out.println("<td>");
                                                     String videoURL = video.getURL();
                                                     if (videoURL != null && !videoURL.equals("")){
-                                                        out.println("<td> <a href='" + videoURL + "' target='_blank'> Enlace" + "</td>"); 
-                                                    } else {
-                                                        out.println("<td> </td>"); 
-                                                    }
-                                                    out.println("<td>");
-                                                    out.println("<form class='uk-form' action='servletControlPanel'>");
-                                                    out.println("<div class='uk-button uk-button-danger'>");
-                                                    out.println("<i class='uk-icon-minus-square'></i>");
-                                                    out.println("<input class='uk-button-link input-cursor-pointer' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
-                                                    out.println("</div>");
-                                                    out.println("</form>");
+                                                        out.println("<form class='uk-form' action='servletControlPanel'>");
+                                                        out.println("<div class='uk-button uk-button-primary'>");
+                                                        out.println("<i class='uk-icon-info-circle'></i>");
+                                                        out.println("<a href='" + videoURL + "' target='_blank' style='color:white;'>" + "Info");
+                                                        out.println("</div>");
+                                                        out.println("</form>");
+                                                    } 
                                                     out.println("</td>");
                                                     out.println("<td>");
                                                     out.println("<form class='uk-form' action='servletControlPanel'>");
                                                     out.println("<div class='uk-button uk-button-success'>");
                                                     out.println("<i class='uk-icon-play-circle'></i>");
                                                     out.println("<input class='uk-button-link input-cursor-pointer' type='submit' name='playvideo#" + video.getID() + "' value='Play'>");
+                                                    out.println("</div>");
+                                                    out.println("</form>");
+                                                    out.println("</td>");
+                                                    out.println("<td>");
+                                                    out.println("<form class='uk-form' action='servletControlPanel'>");
+                                                    out.println("<div class='uk-button uk-button-danger'>");
+                                                    out.println("<i class='uk-icon-minus-square'></i>");
+                                                    out.println("<input class='uk-button-link input-cursor-pointer' type='submit' name='deletevideo#" + video.getID() + "' value='Borrar'>");
                                                     out.println("</div>");
                                                     out.println("</form>");
                                                     out.println("</td>");

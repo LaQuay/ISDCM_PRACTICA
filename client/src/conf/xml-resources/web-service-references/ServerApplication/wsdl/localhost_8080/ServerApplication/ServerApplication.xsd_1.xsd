@@ -34,6 +34,7 @@
 <xs:element name="reproducciones" type="xs:int"/>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
 <xs:element name="URL" type="xs:string" minOccurs="0"/>
+<xs:element name="URLINFO" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

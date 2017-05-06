@@ -104,7 +104,7 @@
                     <p id="url-info" name="url-info"><%= videoCurrent.getURL()%></p>
                     
                     <p class="uk-text-large">Url de video</p>
-                    <p id="url" name="url"><%= videoCurrent.getURL()%></p>
+                    <p id="url" name="url"><%= videoCurrent.getURLInfo()%></p>
                     
                     <div class="uk-form-row uk-text-small">
                         <a class="uk-float-right uk-link uk-link-muted" href="./control_panel.jsp">Volver atrás</a>

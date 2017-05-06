@@ -2,7 +2,6 @@ package controller;
 
 import api.VideoAPIController;
 import static controller.servletControlPanel.attributeUserID;
-import static controller.servletControlPanel.attributeVideosArray;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -85,8 +84,10 @@ public class servletVideoManagement extends HttpServlet {
                 String format = request.getParameter("format");
 
                 String url = request.getParameter("url");
+                
+                String urlinfo = request.getParameter("url-info");
 
-                Video video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url);
+                Video video = new Video(idUsuario, title, author, sqlDate, sqlTime, description, format, url, urlinfo);
                 boolean videoCreated = video.createVideo(); 
 
                 response.setHeader("Refresh", "0;url=servletControlPanel");

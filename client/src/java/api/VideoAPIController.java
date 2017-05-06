@@ -80,7 +80,7 @@ public class VideoAPIController {
                     videoFromServer.getTitulo(), videoFromServer.getAutor(), 
                     sqlDate, sqlTime, 
                     videoFromServer.getReproducciones(), videoFromServer.getDescripcion(),
-                    videoFromServer.getFormato(), videoFromServer.getURL()));
+                    videoFromServer.getFormato(), videoFromServer.getURL(), videoFromServer.getURLINFO()));
         }
         
         return arrayVideos;
