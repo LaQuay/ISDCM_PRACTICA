@@ -1,37 +1,47 @@
+<%@page import="model.Video"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<jsp:useBean id="servletVideoMgmt" class="controller.servletVideoManagement" scope="session"/>
 <html class="uk-height-1-1">
     <head>
         <title>Reproducir video</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="uikit_marc.css">
         <link rel="stylesheet" type="text/css" href="skin/pink.flag/css/jplayer.pink.flag.min.css"/>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
-        
-        <script type="text/javascript">
-            $(document).ready(function(){
-              $("#jquery_jplayer_1").jPlayer({
-                ready: function () {
-                  $(this).jPlayer("setMedia", {
-                    title: "Big Buck Bunny Trailer",
-                    m4v: "http://localhost:8080/server/films/film2.m4v"
-                  });
-                },
-                cssSelectorAncestor: "#jp_container_1",
-                swfPath: "/js",
-                supplied: "m4v",
-                useStateClassSkin: true,
-                autoBlur: false,
-                smoothPlayBar: true,
-                keyEnabled: true,
-                remainingDuration: true,
-                toggleDuration: true
-              });
+                
+        <script type="text/javascript">            
+            $(document).ready(function(){           
+                $("#jquery_jplayer_1").jPlayer({
+                  ready: function () {
+                    $(this).jPlayer("setMedia", {
+                      title: $("#titulo").text().split(': ')[1],
+                      m4v: $("#url").text().split(': ')[1]
+                    });
+                  },
+                  cssSelectorAncestor: "#jp_container_1",
+                  swfPath: "/js",
+                  supplied: "m4v",
+                  useStateClassSkin: true,
+                  autoBlur: false,
+                  smoothPlayBar: true,
+                  keyEnabled: true,
+                  remainingDuration: true,
+                  toggleDuration: true
+                });
             });
         </script>
     </head>
     <body class="uk-height-1-1">
+        <% 
+           Video videoCurrent = (Video) request.getSession().getAttribute("ATTRIBUTE_VIDEO");
+        %>
+        
+        <p id="titulo" name="titulo">Titulo: <%= videoCurrent.getTitulo() %></p>
+        
+        <p id="url" name="url">URL de reproducción: <%= videoCurrent.getURL() %></p>
+        
         <div class="uk-vertical-align uk-text-center uk-height-1-1">        
             <div class="uk-vertical-align-middle" style="width: 50%;">
                 <div id="jp_container_1" class="jp-video " role="application" aria-label="media player">
@@ -79,7 +89,7 @@
                 </div>
                 <form class="uk-panel uk-panel-box uk-form" action="servletVideoManagement">
                     <div class="uk-form-row uk-text-small">
-                        <a class="uk-float-right uk-link uk-link-muted" href="./control_panel.jsp">Volver atrás</a>
+                        <a class="uk-float-right uk-link uk-link-muted" href="./control_panel.jsp">Volver atrÃ¡s</a>
                     </div>
                 </form> 
             </div>

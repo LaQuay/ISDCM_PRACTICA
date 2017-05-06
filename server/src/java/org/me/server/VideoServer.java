@@ -211,6 +211,24 @@ public class VideoServer {
         return videosArray;
     }
     
+    public ArrayList getAllVideosByID(int id){
+        ArrayList videosArray = new ArrayList();
+        try {
+            Connection conn = DriverManager.getConnection(DB_HOST, DB_USER, DB_PASSWORD);
+            Statement stmt = conn.createStatement();
+            
+            String sql = "SELECT * FROM " + TABLENAME + " WHERE id=" + id;
+            System.out.println("Sentencia SQL: " + sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                videosArray.add(getVideoFromResultSet(rs));
+            }            
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return videosArray;
+    }
+    
     private VideoServer getVideoFromResultSet(ResultSet rs) throws SQLException{
         return new VideoServer(
                 rs.getInt("ID"),

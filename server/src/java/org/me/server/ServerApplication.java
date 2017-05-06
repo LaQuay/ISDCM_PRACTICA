@@ -63,4 +63,15 @@ public class ServerApplication {
         VideoServer video = new VideoServer();
         return video.getAllVideosByYear(year);
     }
+    
+    /**
+     * Web service operation
+     * @param id
+     * @return 
+     */
+    @WebMethod(operationName = "getVideosByID")
+    public ArrayList getVideosByID(@WebParam(name = "id") int id) {
+        VideoServer video = new VideoServer();
+        return video.getAllVideosByID(id);
+    }
 }

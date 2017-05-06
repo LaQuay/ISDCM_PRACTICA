@@ -1,12 +1,15 @@
 package controller;
 
+import api.VideoAPIController;
 import static controller.servletControlPanel.attributeUserID;
+import static controller.servletControlPanel.attributeVideosArray;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -27,6 +30,7 @@ import model.Video;
  */
 @WebServlet(name = "servletVideoManagement", urlPatterns = {"/servletVideoManagement"})
 public class servletVideoManagement extends HttpServlet {
+    public static String attributeVideo = "ATTRIBUTE_VIDEO";
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -93,7 +97,15 @@ public class servletVideoManagement extends HttpServlet {
                 if (headerValue.equals("ADD")){
                     request.getRequestDispatcher("/addvideo.html").forward(request, response);                    
                 } else if (headerValue.equals("PLAY")){
-                    request.getRequestDispatcher("/playvideo.html").forward(request, response);                    
+                    String videoPlay = (String) request.getSession().getAttribute("VIDEO_PLAY");
+                    ArrayList videosArray = new ArrayList();
+                    if (request.getParameter("listfilteredvideos") == null) {
+                        videosArray = VideoAPIController.getAllVideos(VideoAPIController.QUERY_VIDEOS_BY_ID, ""+videoPlay);                
+                    }
+                    Video currentVideo = (Video) videosArray.get(0);
+                    request.getSession().setAttribute(attributeVideo, currentVideo);
+                    
+                    request.getRequestDispatcher("/playvideo.jsp").forward(request, response);                    
                 }
             }
         }

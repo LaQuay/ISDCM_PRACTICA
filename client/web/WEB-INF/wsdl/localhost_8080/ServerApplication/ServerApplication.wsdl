@@ -4,17 +4,11 @@
 <xsd:import namespace="http://server.me.org/" schemaLocation="http://localhost:8080/ServerApplication/ServerApplication?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getVideosByAuthorName">
-<part name="parameters" element="tns:getVideosByAuthorName"/>
+<message name="getVideosByID">
+<part name="parameters" element="tns:getVideosByID"/>
 </message>
-<message name="getVideosByAuthorNameResponse">
-<part name="parameters" element="tns:getVideosByAuthorNameResponse"/>
-</message>
-<message name="getVideosByAuthorID">
-<part name="parameters" element="tns:getVideosByAuthorID"/>
-</message>
-<message name="getVideosByAuthorIDResponse">
-<part name="parameters" element="tns:getVideosByAuthorIDResponse"/>
+<message name="getVideosByIDResponse">
+<part name="parameters" element="tns:getVideosByIDResponse"/>
 </message>
 <message name="getVideosByTitle">
 <part name="parameters" element="tns:getVideosByTitle"/>
@@ -28,14 +22,22 @@
 <message name="getVideosByYearResponse">
 <part name="parameters" element="tns:getVideosByYearResponse"/>
 </message>
+<message name="getVideosByAuthorID">
+<part name="parameters" element="tns:getVideosByAuthorID"/>
+</message>
+<message name="getVideosByAuthorIDResponse">
+<part name="parameters" element="tns:getVideosByAuthorIDResponse"/>
+</message>
+<message name="getVideosByAuthorName">
+<part name="parameters" element="tns:getVideosByAuthorName"/>
+</message>
+<message name="getVideosByAuthorNameResponse">
+<part name="parameters" element="tns:getVideosByAuthorNameResponse"/>
+</message>
 <portType name="ServerApplication">
-<operation name="getVideosByAuthorName">
-<input wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorNameRequest" message="tns:getVideosByAuthorName"/>
-<output wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorNameResponse" message="tns:getVideosByAuthorNameResponse"/>
-</operation>
-<operation name="getVideosByAuthorID">
-<input wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorIDRequest" message="tns:getVideosByAuthorID"/>
-<output wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorIDResponse" message="tns:getVideosByAuthorIDResponse"/>
+<operation name="getVideosByID">
+<input wsam:Action="http://server.me.org/ServerApplication/getVideosByIDRequest" message="tns:getVideosByID"/>
+<output wsam:Action="http://server.me.org/ServerApplication/getVideosByIDResponse" message="tns:getVideosByIDResponse"/>
 </operation>
 <operation name="getVideosByTitle">
 <input wsam:Action="http://server.me.org/ServerApplication/getVideosByTitleRequest" message="tns:getVideosByTitle"/>
@@ -45,19 +47,18 @@
 <input wsam:Action="http://server.me.org/ServerApplication/getVideosByYearRequest" message="tns:getVideosByYear"/>
 <output wsam:Action="http://server.me.org/ServerApplication/getVideosByYearResponse" message="tns:getVideosByYearResponse"/>
 </operation>
+<operation name="getVideosByAuthorID">
+<input wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorIDRequest" message="tns:getVideosByAuthorID"/>
+<output wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorIDResponse" message="tns:getVideosByAuthorIDResponse"/>
+</operation>
+<operation name="getVideosByAuthorName">
+<input wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorNameRequest" message="tns:getVideosByAuthorName"/>
+<output wsam:Action="http://server.me.org/ServerApplication/getVideosByAuthorNameResponse" message="tns:getVideosByAuthorNameResponse"/>
+</operation>
 </portType>
 <binding name="ServerApplicationPortBinding" type="tns:ServerApplication">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getVideosByAuthorName">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getVideosByAuthorID">
+<operation name="getVideosByID">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -76,6 +77,24 @@
 </output>
 </operation>
 <operation name="getVideosByYear">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getVideosByAuthorID">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getVideosByAuthorName">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

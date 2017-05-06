@@ -26,6 +26,7 @@ public class VideoAPIController {
     public static final String QUERY_VIDEOS_BY_AUTHOR = "QUERY_VIDEOS_BY_AUTHOR";
     public static final String QUERY_VIDEOS_BY_AUTHOR_ID = "QUERY_VIDEOS_BY_AUTHOR_ID";
     public static final String QUERY_VIDEOS_BY_YEAR = "QUERY_VIDEOS_BY_YEAR";
+    public static final String QUERY_VIDEOS_BY_ID = "QUERY_VIDEOS_BY_ID";
     
     public VideoAPIController(){}
     
@@ -43,6 +44,9 @@ public class VideoAPIController {
                 break;
             case QUERY_VIDEOS_BY_YEAR:
                 videosList = port.getVideosByYear(Integer.parseInt(value));        
+                break;
+            case QUERY_VIDEOS_BY_ID:
+                videosList = port.getVideosByID(Integer.parseInt(value));        
                 break;
             default:
                 videosList = port.getVideosByAuthorID(Integer.parseInt(value));
