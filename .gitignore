@@ -7,3 +7,4 @@ nbdist/
 DUDAS.txt
 README.txt
 *.m4v
+/server/REST/nbproject/private/
