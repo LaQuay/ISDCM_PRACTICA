@@ -2,8 +2,14 @@ package controller;
 
 import api.VideoAPIController;
 import static controller.servletControlPanel.attributeUserID;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
@@ -106,6 +112,9 @@ public class servletVideoManagement extends HttpServlet {
                     Video currentVideo = (Video) videosArray.get(0);
                     request.getSession().setAttribute(attributeVideo, currentVideo);
                     
+                    sendUpdateVisualizations("GET", Integer.parseInt(videoPlay));
+                    //sendUpdateVisualizations("POST", Integer.parseInt(videoPlay));
+                    
                     request.getRequestDispatcher("/playvideo.jsp").forward(request, response);                    
                 }
             }
@@ -150,4 +159,40 @@ public class servletVideoManagement extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void sendUpdateVisualizations(String method, int idPelicula) throws MalformedURLException, IOException {
+        String urlString = "http://localhost:8080/REST/webresources/generic/";
+        HttpURLConnection connection = null;
+        
+        if (method.equals("GET")){
+            urlString += "getInfo?";
+            urlString += "idPelicula=" + idPelicula;
+                        
+            URL url = new URL(urlString);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");            
+        } else if (method.equals("POST")){
+            urlString += "postInfo";            
+            URL url = new URL(urlString);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            
+            String urlParameters = "idPelicula=" + idPelicula;
+            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.flush();
+            wr.close();
+        }
+        if (connection != null) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer res = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                res.append(inputLine);
+            }
+            in.close();
+        }
+    }
 }

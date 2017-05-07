@@ -98,7 +98,7 @@
                     <p id="fecha" name="fecha"><%= videoCurrent.getFecha()%></p>
                     
                     <p class="uk-text-large">Reproducciones</p>
-                    <p id="reproducciones" name="reproducciones"><%= videoCurrent.getReproducciones()%></p>
+                    <p id="reproducciones" name="reproducciones"><%= videoCurrent.getReproducciones()+1%></p>
                     
                     <p class="uk-text-large">Más información</p>
                     <p id="url-info" name="url-info"><%= videoCurrent.getURL()%></p>

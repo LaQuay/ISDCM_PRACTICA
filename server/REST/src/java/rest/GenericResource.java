@@ -37,7 +37,7 @@ public class GenericResource {
     @Produces("text/html")
     public String getInfo(@QueryParam("idPelicula") int idPelicula) {
         VideoServer.updateVideoReproducciones(idPelicula);
-        return "<html><head></head> <body> Actualizando pelicula con ID: " + idPelicula + " reproducciones actuales: " + 0;
+        return "<html><head></head> <body> Actualizando pelicula con ID: " + idPelicula + ", METODO GET";
     }
 
     /**
@@ -52,6 +52,6 @@ public class GenericResource {
     @Produces("text/html")
     public String postInfo(@FormParam("idPelicula") int idPelicula){  
         VideoServer.updateVideoReproducciones(idPelicula);              
-        return "<html><head></head> <body> Actualizando pelicula con ID: " + idPelicula + " reproducciones actuales: " + 0;
+        return "<html><head></head> <body> Actualizando pelicula con ID: " + idPelicula + ", METODO POST";
     }    
 }
