@@ -46,7 +46,7 @@ public class GenericResource {
      * @param idPelicula
      * @return 
      */
-    @Path("postinfo")   
+    @Path("postInfo")   
     @POST    
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/html")
