@@ -21,13 +21,14 @@ public class SecretKeyUtil {
      * @return SecretKey
      */
     public static SecretKey getSecretKey(String algorithm) {
-        KeyGenerator keyGenerator = null;
+        SecretKey secretKey = null;
         try {
-            keyGenerator = KeyGenerator.getInstance(algorithm);
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
+            secretKey = keyGenerator.generateKey();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return keyGenerator.generateKey();
+        return secretKey;
     }
 
     /**
@@ -53,10 +54,8 @@ public class SecretKeyUtil {
     /**
      * Save secret key to a file
      * 
-     * @param secretKey
-     *            : Secret key to save into file
-     * @param fileName
-     *            : File name to store
+     * @param secretKey: Secret key to save into file
+     * @param fileName: File name to store
      */
     public static void saveSecretKey(SecretKey secretKey, String fileName) {
         byte[] keyBytes = secretKey.getEncoded();

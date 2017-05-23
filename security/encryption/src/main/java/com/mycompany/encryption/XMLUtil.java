@@ -53,7 +53,7 @@ public class XMLUtil {
      * @throws Exception
      */
     public static void saveDocumentTo(Document document, String fileName)
-      throws Exception {
+            throws Exception {
         File encryptionFile = new File(fileName);
         FileOutputStream fOutStream = new FileOutputStream(encryptionFile);
 
@@ -76,8 +76,9 @@ public class XMLUtil {
      * @return
      * @throws Exception
      */
-    public static Document encryptDocument(Document document,
-        SecretKey secretKey, String algorithm) throws Exception {
+    public static Document encryptDocument(
+            Document document, SecretKey secretKey, String algorithm) 
+            throws Exception {
         /* Get Document root element */
         Element rootElement = document.getDocumentElement();
         String algorithmURI = algorithm;
@@ -87,7 +88,8 @@ public class XMLUtil {
         xmlCipher.init(XMLCipher.ENCRYPT_MODE, secretKey);
 
         /* Process the contents of document */
-        xmlCipher.doFinal(document, rootElement, true);
+        boolean encryptContentsOnly = true;
+        xmlCipher.doFinal(document, rootElement, encryptContentsOnly);
         return document;
     }
 
@@ -100,11 +102,12 @@ public class XMLUtil {
      * @return
      * @throws Exception
      */
-    public static Document decryptDocument(Document document,
-        SecretKey secretKey, String algorithm) throws Exception {
-        Element encryptedDataElement = (Element) document
-         .getElementsByTagNameNS(EncryptionConstants.EncryptionSpecNS,
-           EncryptionConstants._TAG_ENCRYPTEDDATA).item(0);
+    public static Document decryptDocument(
+            Document document, SecretKey secretKey, String algorithm) 
+            throws Exception {
+        Element encryptedDataElement = (Element) document.getElementsByTagNameNS(
+                EncryptionConstants.EncryptionSpecNS,
+                EncryptionConstants._TAG_ENCRYPTEDDATA).item(0);
 
         XMLCipher xmlCipher = XMLCipher.getInstance();
 
