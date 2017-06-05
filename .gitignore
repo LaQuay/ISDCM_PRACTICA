@@ -9,3 +9,5 @@ README.txt
 *.m4v
 /server/REST/nbproject/private/
 /security/encryption/target/
+/SunAuth/target/
+/SunAuth/nbproject/private/
