@@ -1,14 +1,8 @@
 package sunauth;
 
-import com.sun.xacml.ConfigurationStore;
-import com.sun.xacml.Indenter;
 import com.sun.xacml.ParsingException;
 import com.sun.xacml.PDP;
 import com.sun.xacml.PDPConfig;
-
-import com.sun.xacml.cond.FunctionFactory;
-import com.sun.xacml.cond.FunctionFactoryProxy;
-import com.sun.xacml.cond.StandardFunctionFactory;
 
 import com.sun.xacml.ctx.RequestCtx;
 import com.sun.xacml.ctx.ResponseCtx;
@@ -22,9 +16,6 @@ import com.sun.xacml.finder.impl.SelectorModule;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
